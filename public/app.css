@@ -5,6 +5,7 @@
 
 body {
   font-family: "Helvetica";
+  background-color: rgb(244, 240, 230);
 }
 
 h1 {
@@ -12,6 +13,8 @@ h1 {
 }
 
 #container {
+  background-color: white;
+  padding: 20px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 150px;
@@ -62,4 +65,8 @@ p.intro {
   margin-top: 40px;
   text-align: center;
   color: #333;
+}
+
+strong {
+  color: #555;
 }

@@ -11,32 +11,23 @@
   <script type="text/javascript" src='/javascripts/app.js'></script>
 </head>
 
-<script id="document-template" type="text/x-handlebars-template">
-  <div id='document-preview'>
-    <img src='{{ file.thumbnail_url }}' />
-    <header>
-      <p>{{ file.name }}</p>
-      <h2>Add A message</h2>
-        <textarea>
-        </textarea>
-    </header>
-  </div>
-</script>
-</script>
 <body>
   <section id='container'>
     <section id='upload'>
-      <form id='upload-form'>
-        <div id='drop'>
-          <div class='inner'>
-            <img src="doc.png">
-            <h2>+ Upload a File</h2>
-            <input type='file' style='display: none;'>
-          </div>
+    <div id='document-preview'>
+        <div class='thumbnail' style='float: left; display: inline-block; margin-right: 50px;'>
+          <img src='http://placehold.it/200x300' />
+          <ul style='list-style: none; font-size: 14px; margin-top: 20px;'>
+            <li><strong>name:</strong> foo.png</li>
+          </ul>
         </div>
+        <header>
+          <h2 style='margin-bottom: 20px;'>Add A message</h2>
 
-        <p class='intro'>Upload a file to get started.</p>
-      </form>
+            <textarea>
+            </textarea>
+        </header>
+      </div>
     </section>
   </section>
 </body>
