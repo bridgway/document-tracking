@@ -1,4 +1,4 @@
-/* DO NOT MODIFY. This file was compiled Sat, 17 Mar 2012 12:03:38 GMT from
+/* DO NOT MODIFY. This file was compiled Sat, 17 Mar 2012 16:29:10 GMT from
  * /Users/justin/hacks/documents/coffee/app.coffee
  */
 
@@ -8,20 +8,6 @@
     __slice = Array.prototype.slice;
 
   $(function() {
-    var app;
-    window.App = (function(_super) {
-
-      __extends(App, _super);
-
-      function App() {
-        App.__super__.constructor.apply(this, arguments);
-      }
-
-      App.prototype.initialize = function() {};
-
-      return App;
-
-    })(Backbone.View);
     window.Document = (function(_super) {
 
       __extends(Document, _super);
@@ -105,7 +91,6 @@
       return DocumentUploadForm;
 
     })(Backbone.View);
-    app = new App;
     window.currentDocument = new Document;
     window.uploadForm = new DocumentUploadForm(currentDocument);
     return window.documentView = new DocumentView(currentDocument);

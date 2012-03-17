@@ -5,7 +5,6 @@
 
 body {
   font-family: "Helvetica";
-  background-color: rgb(244, 240, 230);
 }
 
 h1 {
@@ -69,4 +68,52 @@ p.intro {
 
 strong {
   color: #555;
+}
+
+#login {
+  border: 3px solid #CCC;
+  padding: 20px;
+
+}
+
+#login h2 {
+  margin-bottom: 20px;
+}
+
+
+label {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+#login input[type='text'], #login input[type='password'] {
+  width: 500px;
+  height: 30px;
+  font-size: 18px;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  background-color: black;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: Helvetica;
+}
+
+button:hover {
+  background-color:  #666;
+}
+
+.block {
+  margin-bottom: 20px;
+}
+
+.flash {
+  font-size: 13px;
+  padding: 10px;
+  background-color: #EEE;
+  margin-bottom: 20px;
 }
