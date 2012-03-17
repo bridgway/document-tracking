@@ -1,7 +1,4 @@
 $ ->
-  class window.App extends Backbone.View
-    initialize: ->
-
   class window.Document extends Backbone.Model
 
   class window.DocumentView extends Backbone.View
@@ -41,9 +38,6 @@ $ ->
         plucked = name: file.name, thumbnail_url: file.thumbnail_url
         @model.set file: plucked
 
-  # Kickstart my heart
-
-  app = new App
   window.currentDocument = new Document
   window.uploadForm = new DocumentUploadForm(currentDocument)
   window.documentView = new DocumentView(currentDocument)

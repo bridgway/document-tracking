@@ -33,7 +33,6 @@ class Freshbooks
   def clients
     builder = build_request "client.list"
 
-    puts builder
     req_xml = builder
 
     response = send_request req_xml
