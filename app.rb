@@ -49,9 +49,8 @@ class App < Sinatra::Base
   end
 
   post '/login' do
-    puts User.authenticate params[:email]
     user_id = User.authenticate(params[:email])
-    puts "Valid: #{user_id}"
+
     if user_id
       flash[:notice] = "You're logged in!"
       session[:user_id] = user_id
