@@ -1,4 +1,4 @@
-/* DO NOT MODIFY. This file was compiled Sun, 18 Mar 2012 13:20:37 GMT from
+/* DO NOT MODIFY. This file was compiled Sun, 18 Mar 2012 16:35:52 GMT from
  * /Users/justin/hacks/documents/coffee/app.coffee
  */
 

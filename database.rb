@@ -4,7 +4,7 @@ require 'logger'
 require './freshbooks'
 require 'json'
 
-# in memory for now
+
 DB = Sequel.connect('sqlite://database.db')
 
 

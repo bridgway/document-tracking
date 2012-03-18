@@ -9,6 +9,7 @@ class Freshbooks
 
   def initialize(url, token)
     uri = URI.parse(url)
+    # freshbooks doesn't require a password for logging in.
     userinfo = [token, ":", "X"].join
     uri_with_authentication = URI::HTTPS.build({ host: uri.host, path: uri.path, userinfo: userinfo })
     @url = uri_with_authentication.to_s
