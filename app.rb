@@ -21,12 +21,17 @@ class App < Sinatra::Base
     end
   end
 
+  def current_user
+    User.where(id: session[:user_id]).first
+  end
+
   def logged_in?
     session[:user_id] != nil
   end
 
   get '/' do
     authenticate!
+    @user = current_user
     erb :index
   end
 
@@ -59,6 +64,14 @@ class App < Sinatra::Base
 
   get '/template' do
     erb :template
+  end
+
+  get '/show' do
+    erb :show
+  end
+
+  get '/documents/new' do
+    erb :new
   end
 
   post '/upload' do

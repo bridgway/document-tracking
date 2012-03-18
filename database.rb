@@ -7,8 +7,6 @@ require 'json'
 # in memory for now
 DB = Sequel.connect('sqlite://database.db')
 
-# DB.loggers << Logger.new($stdout)
-
 
 class User < Sequel::Model
   def after_create

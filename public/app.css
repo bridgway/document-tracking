@@ -1,119 +1,180 @@
-* {
-  padding: 0;
-  margin: 0;
+#container {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  margin-bottom: 100px;
+}
+
+body {
+  color: #333;
+}
+
+label {
+  display: block;
+}
+
+#outstanding-documents {
+  margin-bottom: 80px;
+}
+
+#outstanding-documents ul {
+  padding-left: 20px;
 }
 
 body {
   font-family: "Helvetica";
 }
 
-h1 {
-  font-size: 25px;
+#upload {
+  float: left;
+  display: inline-block;
+  margin-right: 50px;
 }
 
-#container {
-  background-color: white;
-  padding: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 150px;
-  width: 600px;
+#updates {
+  background-color: #EEE;
+  margin-bottom: 40px;
 }
 
-#upload header {
-  margin-bottom: 20px;
+a {
+  font-size: 13px;
+  text-decoration: none;
+  color: #999;
 }
 
-#upload form {
-
+a:hover {
+  color: black;
 }
 
-#upload .desc {
-  font-size: 20px;
-  color: #444;
-  margin-bottom: 10px;
+#updates h2 {
+  padding: 5px;
+  padding-left: 10px;
+  font-size: 16px;
+  display: inline-block;
 }
 
-#drop h2 {
-  color: #333;
-  margin-top: 25px;
+#fields {
+  width: 500px;
+  float: right;
 }
 
 #drop {
-  margin: 0 auto;
-  width: 200px;
+  padding: 20px;
   border: 3px dashed #CCC;
-  padding: 20px;
-  height: 220px;
+  height: 250px;
 }
 
-#drop .inner {
-  width: 180px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#drop .inner img {
-  width: 92px;
-  margin-left: 40px;
-  margin-top: 15%;
-}
-
-p.intro {
-  font-size: 20px;
-  margin-top: 40px;
+#drop h2 {
+  margin-top: 80%;
   text-align: center;
-  color: #333;
 }
 
-strong {
-  color: #555;
+textarea {
+  width: 100%;
+  height: 200px;
 }
-
-#login {
-  border: 3px solid #CCC;
-  padding: 20px;
-
-}
-
-#login h2 {
-  margin-bottom: 20px;
-}
-
 
 label {
   font-size: 14px;
-  display: block;
-  margin-bottom: 5px;
-}
-
-#login input[type='text'], #login input[type='password'] {
-  width: 500px;
-  height: 30px;
-  font-size: 18px;
-}
-
-button {
-  padding: 10px;
-  border: none;
-  background-color: black;
-  color: white;
-  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: #666;
   font-weight: bold;
-  font-family: Helvetica;
-}
-
-button:hover {
-  background-color:  #666;
 }
 
 .block {
   margin-bottom: 20px;
 }
 
-.flash {
-  font-size: 13px;
-  padding: 10px;
-  background-color: #EEE;
+input[type=text] {
+  height: 30px;
+  font-size: 20px;
+  width: 100%;
+}
+
+input[type=text]:focus {
+  outline: none;
+}
+
+header {
+  margin-bottom: 40px;
+}
+
+header h2 {
   margin-bottom: 20px;
+  border-bottom: 1px solid #DDD;
+  padding-bottom: 10px;
+}
+
+li h3 {
+  font-weight: normal;
+}
+
+li h3 span {
+  color: #999;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+button {
+  margin-top: 20px;
+  float: right;
+}
+
+#add-comment {
+  background-color: #EEE;
+  padding: 10px;
+}
+
+#add-comment textarea {
+  border: 1px solid #999;
+}
+
+#discussion {
+  margin-top: 50px;
+}
+
+#login {
+  border: 3px solid #CCC;
+  padding: 10px;
+  width: 500px;
+  margin: 0 auto;
+}
+
+#login input[type=text], #login input[type=password] {
+  width: 300px;
+  height: 30px;
+}
+
+#login button {
+  background-color: black;
+  border: none;
+  color: white;
+  float: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: Helvetica;
+  padding: 5px;
+}
+
+#login #inner {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.field {
+  display: block;
+  margin-bottom: 20px;
+}
+
+#blotter {
+  margin-top: 50px;
+  height: 100px;
+  border-bottom: 1px solid #999;
+}
+
+.subtle {
+  color: #666;
 }

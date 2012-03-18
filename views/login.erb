@@ -1,49 +1,21 @@
-<html>
-<head>
-  <title>Upload A Document</title>
-  <link rel="stylesheet" type="text/css" href="/app.css">
-  <script type="text/javascript" src='/jquery.js'></script>
-  <script type="text/javascript" src='/handlebars.js'></script>
-  <script type="text/javascript" src='/underscore.js'></script>
-  <script type="text/javascript" src='/backbone.js'></script>
-  <script type="text/javascript" src='/jquery.ui.widget.js'></script>
-  <script type="text/javascript" src='/jquery.fileupload.js'></script>
-  <script type="text/javascript" src='/javascripts/app.js'></script>
-</head>
+<section id='login'>
+  <div id='inner'>
+    <h2>Log In</h2>
+    <form action='/login' method='post'>
 
-<script id="document-template" type="text/x-handlebars-template">
-  <div id='document-preview'>
-    <img src='{{ file.thumbnail_url }}' />
-    <header>
-      <p>{{ file.name }}</p>
-      <h2>Add A message</h2>
-        <textarea>
-        </textarea>
-    </header>
+      <%= styled_flash %>
+
+      <div class='field'>
+        <label>Email</label>
+        <input type='text' name='email' />
+      </div>
+
+      <div class='field'>
+        <label>Password</label>
+        <input type='password' name='password' />
+      </div>
+
+      <button>Log In</button>
+    </form>
   </div>
-</script>
-</script>
-<body>
-  <section id='container'>
-    <section id='login'>
-      <h2>Log In</h2>
-      <form action='/login' method='post'>
-
-        <%= styled_flash %>
-
-        <div class='block'>
-          <label>Email</label>
-          <input type='text' name='email' />
-        </div>
-
-        <div class='block'>
-          <label>Password</label>
-          <input type='password' name='password' />
-        </div>
-
-        <button>Log In</button>
-      </form>
-    </section>
-  </section>
-</body>
-</html>
+</section>

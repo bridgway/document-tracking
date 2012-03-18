@@ -1,43 +1,53 @@
-<html>
-<head>
-  <title>Upload A Document</title>
-  <link rel="stylesheet" type="text/css" href="/app.css">
-  <script type="text/javascript" src='/jquery.js'></script>
-  <script type="text/javascript" src='/handlebars.js'></script>
-  <script type="text/javascript" src='/underscore.js'></script>
-  <script type="text/javascript" src='/backbone.js'></script>
-  <script type="text/javascript" src='/jquery.ui.widget.js'></script>
-  <script type="text/javascript" src='/jquery.fileupload.js'></script>
-  <script type="text/javascript" src='/javascripts/app.js'></script>
-</head>
+<section id='updates'>
+  <h2>2 Documents were signed since you were last here.</h2>
+  <a href="#">details...</a>
+</section>
 
-<script id="document-template" type="text/x-handlebars-template">
-  <div id='document-preview'>
-    <img src='{{ file.thumbnail_url }}' />
-    <header>
-      <p>{{ file.name }}</p>
-      <h2>Add A message</h2>
-        <textarea>
-        </textarea>
-    </header>
-  </div>
-</script>
-</script>
-<body>
-  <section id='container'>
+<section id='outstanding-documents'>
+  <header>
+    <h2>Outstanding Documents</h2>
+    <p style='font-size: 16px;'>These documents have not been signed yet.</p>
+  </header>
+
+
+  <ul>
+    <li><h3>Justin Woodbridge's <span>W9 Form</span></h3></li>
+    <li><h3>Jason Fried's Work <span>Contract</span></h3></li>
+    <li><h3>Rob Woodbridge's <span>Payment Order</span></h3></li>
+  </ul>
+</section>
+
+
+<section id='new-document'>
+  <header>
+    <h2>Upload A New Document</h2>
+  </header>
+
+
+  <form>
+
     <section id='upload'>
-      <form id='upload-form'>
-        <div id='drop'>
-          <div class='inner'>
-            <img src="doc.png">
-            <h2>+ Upload a File</h2>
-            <input type='file' style='display: none;'>
-          </div>
+      <div id='drop'>
+        <div class='inner'>
+          <h2>+ Upload a File</h2>
+          <input type='file' style='display: none;'>
+        </div>
+      </div>
+    </section>
+
+    <section id='fields'>
+        <div class='block'>
+          <label>To:</label>
+          <input type='text' data-people='<%= @user.people %>'/>
         </div>
 
-        <p class='intro'>Upload a file to get started.</p>
-      </form>
+        <div class='block'>
+          <label>Message:</label>
+          <textarea></textarea>
+
+          <button>Send It</button>
+        </div>
     </section>
-  </section>
-</body>
-</html>
+  </form>
+
+</section>
