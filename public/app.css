@@ -178,3 +178,14 @@ button {
 .subtle {
   color: #666;
 }
+
+#document-thumbnails {
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+#document-thumbnails li {
+  display: block;
+  margin-bottom: 20px;
+}
