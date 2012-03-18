@@ -4,10 +4,16 @@
   margin-right: auto;
   margin-top: 40px;
   margin-bottom: 100px;
+  border: 1px solid #CCC;
+  padding: 25px;
+  border-radius: 5px;
+  box-shadow: 0px 1px 1px #333;
+  background-color: white;
 }
 
 body {
   color: #333;
+  background-color:  rgb(53, 52, 59);
 }
 
 label {
@@ -16,6 +22,7 @@ label {
 
 #outstanding-documents {
   margin-bottom: 80px;
+  color: #777;
 }
 
 #outstanding-documents ul {
@@ -35,6 +42,11 @@ body {
 #updates {
   background-color: #EEE;
   margin-bottom: 40px;
+  color: #326ECF;
+}
+
+#updates a {
+
 }
 
 a {
@@ -73,6 +85,14 @@ a:hover {
 textarea {
   width: 100%;
   height: 200px;
+  border: 1px solid #CCC;
+  border-radius: 2px;
+  font-size: 14px;
+  padding: 5px;
+}
+
+textarea:focus {
+  outline: none;
 }
 
 label {
@@ -90,6 +110,10 @@ input[type=text] {
   height: 30px;
   font-size: 20px;
   width: 100%;
+  border: 1px solid #CCC;
+  border-radius: 2px;
+  padding: 5px;
+  height: 35px;
 }
 
 input[type=text]:focus {
@@ -159,6 +183,12 @@ button {
   padding: 5px;
 }
 
+#signed {
+  margin-bottom: 50px;
+
+}
+
+
 #login #inner {
   width: 300px;
   margin: 0 auto;
@@ -188,4 +218,8 @@ button {
 #document-thumbnails li {
   display: block;
   margin-bottom: 20px;
+}
+
+.clear {
+  clear: both
 }
