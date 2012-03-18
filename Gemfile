@@ -1,6 +1,7 @@
 source :rubygems
 
 gem 'sinatra'
+gem 'sqlite3'
 gem 'sequel'
 gem 'barista'
 gem 'builder'
@@ -10,7 +11,6 @@ gem 'rest-client'
 gem 'sinatra-flash'
 
 group :development do
-  gem 'sqlite3'
   gem 'shotgun'
 end
 
