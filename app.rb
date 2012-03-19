@@ -2,8 +2,11 @@ require 'sinatra'
 require 'erb'
 require 'json'
 require 'barista'
-require './database'
+require './db/database'
 require 'sinatra/flash'
+
+require './document'
+require './user'
 
 class App < Sinatra::Base
   enable :sessions
