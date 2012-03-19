@@ -65,7 +65,6 @@ DEPENDENCIES
   builder
   carrierwave
   crack
-  mime-types
   mini_magick
   rest-client
   shotgun
