@@ -9,6 +9,7 @@ gem 'crack'
 gem "bcrypt-ruby", "~> 3.0.1"
 gem 'rest-client'
 gem 'sinatra-flash'
+gem 'carrierwave'
 
 group :development do
   gem 'shotgun'

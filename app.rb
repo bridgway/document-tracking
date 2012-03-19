@@ -2,9 +2,10 @@ require 'sinatra'
 require 'erb'
 require 'json'
 require 'barista'
-require './db/database'
 require 'sinatra/flash'
 
+require './db/database'
+require './document_file'
 require './document'
 require './user'
 
@@ -75,6 +76,10 @@ class App < Sinatra::Base
   get '/documents/new' do
     erb :new
   end
+
+  post '/documents/new' do
+  end
+
 
   post '/upload' do
     # TODO: I'll save this with paperclip.
