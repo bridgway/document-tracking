@@ -1,5 +1,7 @@
 $ ->
   class window.Document extends Backbone.Model
+    defaults:
+      files: []
 
   class window.DocumentView extends Backbone.View
     template: Handlebars.compile $("#document-template").html()
@@ -42,7 +44,8 @@ $ ->
         done: (ev, data) => this.uploadFinished(ev, data)
 
     drawThumbnail: ->
-      @thumbnailList.append $("<li><img src='http://placehold.it/160x200' /></li>")
+      latest = _.last @model.get('files')
+      @thumbnailList.append $("<li><img src='#{latest.url}' /></li>")
 
     switchToUploading: (fn) ->
       if @noFiles
@@ -57,12 +60,20 @@ $ ->
     reset: ->
       $('#drop h2').text("+ Upload a File")
 
+
+    recordFile: ->
+      console.log @model.get('files')
+      json = JSON.stringify @model.get('files')
+      this.$el.attr 'data-files', json
+
     uploadFinished: (ev, data) ->
-      _.each data.result, (file, index) =>
-        plucked = name: file.name, thumbnail_url: file.thumbnail_url
-        @model.set file: plucked
-        this.drawThumbnail()
-        this.reset()
+      file = data.result
+      @model.get('files').push file
+
+      # might be cleaner to just past the latest file to these methods instead of using @model.
+      this.drawThumbnail()
+      this.recordFile()
+      this.reset()
 
   window.currentDocument = new Document
   window.uploadForm = new DocumentUploadForm(currentDocument)

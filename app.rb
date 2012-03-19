@@ -80,13 +80,29 @@ class App < Sinatra::Base
   post '/documents/new' do
   end
 
-
   post '/upload' do
+    puts params
+
+    temp_file = params[:files][0]
+    file = DocumentFile.new()
+    file.source = temp_file
+
+    if file.save
+      attrs = {
+        id: file.id,
+        url: file.source.url
+      }
+
+      return attrs.to_json
+    else
+      return file.errors.to_json
+    end
+
     # TODO: I'll save this with paperclip.
-    [{
-      name: 'foo.png',
-      size: '1',
-      thumbnail_url: 'http://placehold.it/600x400'
-    }].to_json
+    # [{
+    #   name: 'foo.png',
+    #   size: '1',
+    #   thumbnail_url: 'http://placehold.it/600x400'
+    # }].to_json
   end
 end
