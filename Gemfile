@@ -10,6 +10,8 @@ gem "bcrypt-ruby", "~> 3.0.1"
 gem 'rest-client'
 gem 'sinatra-flash'
 gem 'carrierwave'
+gem 'mini_magick'
+gem 'mime-types'
 
 group :development do
   gem 'shotgun'
