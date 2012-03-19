@@ -90,7 +90,7 @@ class App < Sinatra::Base
     if file.save
       attrs = {
         id: file.id,
-        url: file.source.url
+        url: file.source.thumb.url
       }
 
       return attrs.to_json
