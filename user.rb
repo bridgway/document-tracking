@@ -34,4 +34,15 @@ class User < ActiveRecord::Base
       user.id
     end
   end
+
+  def self.create_admin!
+    if App.development?
+      User.create(
+        :email => "jwoodbridge@me.com",
+        :freshbooks_token => "e4e173dbe0aa2cac2f8349ee0edde949",
+        :freshbooks_url => "https://woodbridge.freshbooks.com/api/2.1/xml-in",
+        :password_hash => "aoeuaoeu"
+      )
+    end
+  end
 end

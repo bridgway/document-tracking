@@ -4,12 +4,18 @@ require 'json'
 require 'barista'
 require 'sinatra/flash'
 
+$: << File.expand_path("./lib")
+
+require 'environment'
 require './db/database'
 require './document_file'
 require './document'
 require './user'
 
+
 class App < Sinatra::Base
+  include Environment
+
   enable :sessions
 
   register Barista::Integration::Sinatra
