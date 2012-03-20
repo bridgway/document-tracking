@@ -8,7 +8,7 @@ end
 
 desc "Boot up IRB with our code"
 task :console do
-  sh "irb -rubygems -r ./app"
+  sh "irb -rubygems -r ./app/app"
 end
 
 namespace :db do
