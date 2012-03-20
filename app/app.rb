@@ -96,7 +96,7 @@ class App < Sinatra::Base
     puts params
 
     temp_file = params[:files][0]
-    file = DocumentFile.new()
+    file = DocumentFile.new
     file.source = temp_file
 
     if file.save
@@ -109,12 +109,5 @@ class App < Sinatra::Base
     else
       return file.errors.to_json
     end
-
-    # TODO: I'll save this with paperclip.
-    # [{
-    #   name: 'foo.png',
-    #   size: '1',
-    #   thumbnail_url: 'http://placehold.it/600x400'
-    # }].to_json
   end
 end
