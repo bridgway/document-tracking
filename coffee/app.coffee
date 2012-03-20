@@ -29,6 +29,9 @@ $ ->
       @thumbnailList = $('#document-thumbnails')
       @noFiles = true
 
+      $('#name-field').autocomplete()
+
+
       # Bind our fileupload handler to the drop zone.
 
       $('#drop').fileupload
