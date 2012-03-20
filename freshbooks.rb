@@ -50,6 +50,12 @@ class Freshbooks
       # but now we have all the clients.
       clients = doc["clients"]["client"]
 
+      # If we only get one client, it'll be a hash.  Put it in a array so we can map it.
+      # otherwise, mapping a hash gives us key/val pairs.
+      if clients.is_a? Hash
+        clients = [] << clients
+      end
+
       # now pluck out the exact data we want from our clients.
       good = clients.map do |client|
         {
