@@ -1,5 +1,5 @@
 require 'active_record'
-require './app/models/user'
+require './app/app'
 
 desc "Start development server"
 task :start do
