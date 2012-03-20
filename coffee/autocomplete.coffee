@@ -1,6 +1,12 @@
 $ ->
   $ = jQuery
 
+  Keys =
+    tab: 9
+    up: 38
+    down: 40
+    comma: 188
+
   search = (text, people) ->
     matches = []
     re = new RegExp(text, "i")
@@ -11,8 +17,15 @@ $ ->
         if match and match[0].length != 0
           match_substr = match[0]
           formatted = match.input.replace(match_substr, match_substr.bold())
-          matches.push formatted
 
+          bundled =
+            formatted: formatted
+            name: person.name
+            email: person.email
+
+          matches.push bundled
+
+    window.matches = matches
     matches
 
   setupSearchResults = (parent, results, hidden=true) ->
@@ -33,7 +46,10 @@ $ ->
     searchResultsDiv.find('ul').empty()
 
     for result in results
-      $li = $("<li>#{result}</li>")
+      $li = $("<li>#{result.formatted}</li>")
+      $li.attr 'data-name', result.name
+      $li.attr 'data-email', result.email
+
       searchResultsDiv.find('ul').append $li
 
   resetSearchResults = (el) ->
@@ -41,6 +57,61 @@ $ ->
     $('#search-results').hide()
 
     el.attr 'data-search-results-shown', false
+
+  select = (textField) ->
+    selected = $('#search-results').find('ul').children().first()
+    person = selected.text()
+
+    oldVal = textField.val()
+
+    if not oldVal.match(/,/)
+      textField.val person + ", "
+    else
+      cursorLoc = oldVal.length
+
+      char = null
+      index = cursorLoc
+      comma = false
+
+      while index > 0
+        char = oldVal.charAt index
+        if char == ','
+          comma = true
+          break
+        else
+          index -= 1
+
+      console.log "#{index} #{cursorLoc}"
+      # pad it by two
+      fragment = oldVal.substring(index + 2, cursorLoc)
+      textField.val oldVal.replace(fragment, person + ", ")
+
+    recipients = textField.data('recipients')
+    recipients ||= []
+    recipients.push
+      name: selected.data('name')
+      email: selected.data('email')
+
+    textField.data('recipients', recipients)
+
+    resetSearchResults(textField)
+
+  handleShortcuts = (parent, ev) ->
+    completing = JSON.parse parent.attr 'data-search-results-shown'
+
+    if completing
+      switch ev.keyCode
+        when Keys.tab
+         ev.preventDefault()
+         select(parent)
+
+        # when Keys.up
+
+        # when Key.down
+
+
+  verifyContents = (parent) ->
+    text = parent.val()
 
   $.fn.autocomplete = ->
     # *this* is the object that's being autocompleted.
@@ -53,9 +124,33 @@ $ ->
     setupSearchResults this
 
     this.on
+      'keydown': (ev) =>
+        handleShortcuts(this, ev)
+
       'keyup': (ev) =>
         text = $(ev.target).val()
-        results = search(text, people)
+
+        cursorLoc = this[0].selectionStart || 0
+
+        char = null
+        index = cursorLoc
+        comma = false
+
+        while index > 0
+          char = text.charAt index
+          if char == ','
+            comma = true
+            break
+          else
+            index -= 1
+
+        if comma
+          query = $.trim text.substring(index + 1)
+
+          results = search(query, people)
+        else
+          results = search(text, people)
+
         if results.length == 0
           resetSearchResults(this)
         else
@@ -64,3 +159,4 @@ $ ->
 
       'focusout': (ev) =>
         resetSearchResults this
+        verifyContents(this)
