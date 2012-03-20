@@ -1,16 +1,18 @@
 require 'sinatra'
 require 'erb'
+
 require 'json'
 require 'barista'
 require 'sinatra/flash'
 
 $: << File.expand_path("./lib")
+$: << File.expand_path(File.dirname(__FILE__))
 
 require 'environment'
 require './db/database'
-require './document_file'
-require './document'
-require './user'
+require 'models/document_file'
+require 'models/document'
+require 'models/user'
 
 
 class App < Sinatra::Base
@@ -24,6 +26,10 @@ class App < Sinatra::Base
   register Sinatra::Flash
 
   set :session_secret, "secret"
+
+  root = File.dirname(File.expand_path(__FILE__))
+  set :public_folder, "#{root}/../../public"
+  set :views, "#{root}/views"
 
   def authenticate!
     if !session[:user_id]

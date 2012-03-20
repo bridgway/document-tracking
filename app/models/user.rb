@@ -1,4 +1,4 @@
-require './freshbooks'
+
 
 class User < ActiveRecord::Base
 

@@ -1,4 +1,4 @@
-require './document_uploader'
+require 'document_uploader'
 
 class DocumentFile < ActiveRecord::Base
   mount_uploader :source, DocumentUploader
