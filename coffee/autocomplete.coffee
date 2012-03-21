@@ -81,7 +81,6 @@ $ ->
         else
           index -= 1
 
-      console.log "#{index} #{cursorLoc}"
       # pad it by two
       fragment = oldVal.substring(index + 2, cursorLoc)
       textField.val oldVal.replace(fragment, person + ", ")
@@ -95,6 +94,7 @@ $ ->
     textField.data('recipients', recipients)
 
     resetSearchResults(textField)
+    verifyAndRecordNames(textField)
 
   handleShortcuts = (parent, ev) ->
     completing = JSON.parse parent.attr 'data-search-results-shown'
@@ -109,9 +109,10 @@ $ ->
 
         # when Key.down
 
+  # TODO: Right now this thing records whitespace..  when name.length > 0 is not working..
+  verifyAndRecordNames = (parent) ->
+    split = $.trim parent.val().split(',')
 
-  verifyContents = (parent) ->
-    text = parent.val()
 
   $.fn.autocomplete = ->
     # *this* is the object that's being autocompleted.
@@ -159,4 +160,4 @@ $ ->
 
       'focusout': (ev) =>
         resetSearchResults this
-        verifyContents(this)
+        verifyAndRecordNames(this)

@@ -92,8 +92,21 @@ class App < Sinatra::Base
   end
 
   post '/documents/new' do
-    doc = Document.new params[:document]
-    puts params
+    # TODO: Scope the queries to the current_user only.
+
+    doc = Document.new
+    json = JSON.parse params[:document], symbolize_names: true
+
+    json[:files].each do |file|
+      doc.files << DocumentFile.find(file[:id])
+    end
+
+    json[:recipients].each do |recipient|
+      doc.recipients << Person.find(recipient[:id])
+    end
+
+    doc.message = json[:message]
+
     if doc.save
       json doc
     else

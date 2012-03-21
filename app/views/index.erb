@@ -38,7 +38,7 @@
   </header>
 
 
-  <form id='upload-form'>
+  <form id='upload-form' action='/documents/new' method='POST'>
 
     <section id='upload'>
       <div id='drop'>
@@ -56,12 +56,12 @@
     <section id='fields'>
         <div class='block'>
           <label>To:</label>
-          <input type='text' data-people='<%= @user.people %>' id='name-field' spellcheck='false' autocomplete='off' />
+          <input type='text' data-people='<%= @user.people_json %>' id='name-field' spellcheck='false' autocomplete='off' />
         </div>
 
         <div class='block'>
           <label>Message:</label>
-          <textarea></textarea>
+          <textarea id='message'></textarea>
 
           <button>Send It</button>
         </div>

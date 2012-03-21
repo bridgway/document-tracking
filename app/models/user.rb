@@ -22,17 +22,12 @@ class User < ActiveRecord::Base
     self.save
   end
 
-  def get_people
-    i = 1
-    JSON.parse(self.people).map do |hash|
-      hash.merge! :id => i
-      i += 1
-      hash
-    end
-  end
-
   def freshbooks_client
     @freshbooks_client ||= Freshbooks.new self.freshbooks_url, self.freshbooks_token
+  end
+
+  def people_json
+    self.people.map { |person| { id: person.id, email: person.email, name: person.name } }.to_json
   end
 
   def self.authenticate(email, password=nil)

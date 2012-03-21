@@ -24,13 +24,15 @@ $ ->
   class window.DocumentUploadForm extends Backbone.View
     el: $('#upload-form')
 
+    events:
+      'submit': 'handleSubmit'
+
     initialize: (model) ->
       @model = model
       @thumbnailList = $('#document-thumbnails')
       @noFiles = true
 
       $('#name-field').autocomplete()
-
 
       # Bind our fileupload handler to the drop zone.
 
@@ -65,7 +67,6 @@ $ ->
 
 
     recordFile: ->
-      console.log @model.get('files')
       json = JSON.stringify @model.get('files')
       this.$el.attr 'data-files', json
 
@@ -77,6 +78,36 @@ $ ->
       this.drawThumbnail()
       this.recordFile()
       this.reset()
+
+    handleSubmit: (ev) ->
+      ev.preventDefault()
+
+      # I don't like doing this here, but it saves the pain of trying
+      # to keep in sync with the textfield as the user types
+
+      recipients = this.$el.find('#name-field').val().split(',')
+      people = this.$el.find('#name-field').data('people')
+
+      finalSet = []
+
+      for recipient in recipients
+        for person in people
+          if recipient.match person.name
+            fullRecipient =
+              id: person.id
+              name: recipient
+              email: person.email
+
+            finalSet.push fullRecipient
+            break
+
+      @model.set 'recipients', finalSet
+      @model.set 'message', this.$el.find('#message').val()
+
+      console.log @model.toJSON()
+
+      $.post this.$el.attr('action'), document: JSON.stringify(@model.toJSON()), (data) ->
+        console.log data
 
   window.currentDocument = new Document
   window.uploadForm = new DocumentUploadForm(currentDocument)
