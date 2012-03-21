@@ -24,17 +24,33 @@ namespace :db do
       ENV["VERSION"] ? ENV["VERSION"].to_i : nil
     )
   end
-end
 
-desc "Seed the database with test data"
-task :seed do
-  require './db/database'
-  puts "Creating test user..."
-  User.create(
-    :email => "jwoodbridge@me.com",
-    :freshbooks_url => "https://woodbridge.freshbooks.com/api/2.1/xml-in",
-    :freshbooks_token => "e4e173dbe0aa2cac2f8349ee0edde949"
-  )
+  desc "Seed the database with test data"
+  task :seed do
+    require './db/database'
+    puts "Creating test user..."
+    User.create(
+      :email => "jwoodbridge@me.com",
+      :freshbooks_url => "https://woodbridge.freshbooks.com/api/2.1/xml-in",
+      :freshbooks_token => "e4e173dbe0aa2cac2f8349ee0edde949"
+    )
+  end
+
+  desc "Delete the database"
+  task :delete do
+    if App.production?
+      puts "Not going to do that in production."
+      exit
+    end
+
+    sh "rm database.db"
+  end
+
+  desc "Delete the database, remigrate, and seed"
+  task :reset => ["delete", "migrate", "seed"]
+
+
+
 end
 
 task :default => :start
