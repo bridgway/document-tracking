@@ -12,7 +12,7 @@
   <ul>
     <% if @signed.any? %>
       <% @signed.each do |doc| %>
-      <li><h3><%= File.basename(doc.files.first.source.url) %>
+      <li><h3><%= File.basename(doc.file.source.url) %>
         <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
       <% end %>
     <% else %>
@@ -31,7 +31,7 @@
 
   <ul>
     <% @unsigned.each do |doc| %>
-      <li><h3><%= File.basename(doc.files.first.source.url) %>
+      <li><h3><%= File.basename(doc.file.source.url) %>
         <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
     <% end %>
   </ul>

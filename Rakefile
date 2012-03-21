@@ -44,6 +44,7 @@ namespace :db do
     doc = Document.new message: "a test"
     doc.recipients << user.people.first
     doc.files << file
+    doc.save
 
     user.documents << doc
   end

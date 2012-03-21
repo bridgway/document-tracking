@@ -6,7 +6,7 @@ class Document < ActiveRecord::Base
   has_many :files, :class_name => DocumentFile, :through => :document_transfers
 
   validates :message, :presence => true
-  validates :files, :presence => true
+  validates :file, :presence => true
   validates :recipients, :presence => true
 
   STATUSES = {
@@ -34,5 +34,20 @@ class Document < ActiveRecord::Base
     end
 
     write_attribute(:status, status)
+  end
+
+  # Not sure where we're leaning to in terms of one file or multilpe files.
+  # For now, just fake it.
+
+  def file
+    self.files.first
+  end
+
+  def file=(src)
+    if !self.files.empty?
+      self.files.shift
+    end
+
+    self.files.push(src)
   end
 end
