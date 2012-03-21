@@ -92,17 +92,15 @@ class App < Sinatra::Base
   end
 
   post '/documents/new' do
-    # TODO: Scope the queries to the current_user only.
-
     doc = Document.new
     json = JSON.parse params[:document], symbolize_names: true
 
     json[:files].each do |file|
-      doc.files << DocumentFile.find(file[:id])
+      doc.files << current_user.files.find(file[:id])
     end
 
     json[:recipients].each do |recipient|
-      doc.recipients << Person.find(recipient[:id])
+      doc.recipients << current_user.people.find(recipient[:id])
     end
 
     doc.message = json[:message]
@@ -115,10 +113,8 @@ class App < Sinatra::Base
   end
 
   post '/upload' do
-    puts params
-
     temp_file = params[:files][0]
-    file = DocumentFile.new
+    file = DocumentFile.new(:user_id => current_user.id)
     file.source = temp_file
 
     if file.save

@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   validates :freshbooks_url, :presence => true
 
   has_many :documents
+  has_many :files, :class_name => DocumentFile
   has_many :people
 
   after_create do
