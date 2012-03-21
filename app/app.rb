@@ -158,4 +158,8 @@ class App < Sinatra::Base
       # 404 it
     end
   end
+
+  not_found do
+    redirect '/'
+  end
 end
