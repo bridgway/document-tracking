@@ -31,6 +31,15 @@ class User < ActiveRecord::Base
     self.people.map { |person| { id: person.id, email: person.email, name: person.name } }.to_json
   end
 
+  def unsigned_documents
+    self.documents.unsigned
+  end
+
+  def signed_documents
+    self.documents.signed
+  end
+
+
   def self.authenticate(email, password=nil)
     user = User.find_by_email(email)
     if user

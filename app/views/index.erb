@@ -10,9 +10,14 @@
   </header>
 
   <ul>
-    <li><h3>Justin Woodbridge's <span>W9 Form</span></h3></li>
-    <li><h3>Jason Fried's <span>Contract</span></h3></li>
-    <li><h3>Rob Woodbridge's <span>Payment Order</span></h3></li>
+    <% if @signed.any? %>
+      <% @signed.each do |doc| %>
+      <li><h3><%= File.basename(doc.files.first.source.url) %>
+        <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
+      <% end %>
+    <% else %>
+      <p>No signed document.s</p>
+    <% end %>
   </ul>
 
 </section>
@@ -25,9 +30,10 @@
 
 
   <ul>
-    <li><h3>Justin Woodbridge's <span>W9 Form</span></h3></li>
-    <li><h3>Jason Fried's <span>Contract</span></h3></li>
-    <li><h3>Rob Woodbridge's <span>Payment Order</span></h3></li>
+    <% @unsigned.each do |doc| %>
+      <li><h3><%= File.basename(doc.files.first.source.url) %>
+        <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
+    <% end %>
   </ul>
 </section>
 

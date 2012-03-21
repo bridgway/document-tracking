@@ -8,6 +8,8 @@ require 'sinatra/flash'
 $: << File.expand_path("./lib")
 $: << File.expand_path(File.dirname(__FILE__))
 
+require 'helpers'
+
 require 'environment'
 require './db/database'
 require 'models/document_file'
@@ -39,6 +41,7 @@ class App < Sinatra::Base
   end
 
   def current_user
+    # TODO: Cache this in a an instance variable
     User.where(id: session[:user_id]).first
   end
 
@@ -46,9 +49,16 @@ class App < Sinatra::Base
     session[:user_id] != nil
   end
 
+  helpers do
+    include Helpers
+  end
+
   get '/' do
     authenticate!
     @user = current_user
+    @unsigned = @user.unsigned_documents
+    @signed = @user.signed_documents
+
     erb :index
   end
 

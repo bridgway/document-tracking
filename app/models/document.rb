@@ -16,6 +16,9 @@ class Document < ActiveRecord::Base
 
   READ_STATUSES = STATUSES.invert
 
+  scope :unsigned, where(:status => STATUSES[:unsigned])
+  scope :signed, where(:status => STATUSES[:signed])
+
   class UnkownDocumentStatus < Exception; end
 
   def status
