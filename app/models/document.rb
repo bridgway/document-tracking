@@ -1,3 +1,5 @@
+require 'pathname'
+
 class Document < ActiveRecord::Base
   belongs_to :user
 
@@ -36,6 +38,20 @@ class Document < ActiveRecord::Base
     write_attribute(:status, status)
   end
 
+  def slug
+    if !@slug
+
+      # kinda awkward.  Basically, get the extension name, and then pass that to basename with the full filename.
+      # It returns just the file name.
+      # "test.pdf" => "test"
+
+      extennsionless = File.basename self.filename, Pathname.new(self.filename).extname
+      @slug = [self.id, '-', extennsionless.downcase.gsub(' ', '-')].join
+    end
+
+    @slug
+  end
+
   # Not sure where we're leaning to in terms of one file or multilpe files.
   # For now, just fake it.
 
@@ -49,5 +65,9 @@ class Document < ActiveRecord::Base
     end
 
     self.files.push(src)
+  end
+
+  def filename
+    File.basename self.file.source.url
   end
 end
