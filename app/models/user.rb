@@ -10,18 +10,25 @@ class User < ActiveRecord::Base
   validates :freshbooks_url, :presence => true
 
   has_many :documents
+  has_many :people
 
   after_create do
     f = self.freshbooks_client
-    client = JSON.dump f.clients
 
-    self.people = client
+    f.clients.each do |client|
+      self.people << Person.create(:email => client[:name], :name => client[:name])
+    end
 
     self.save
   end
 
   def get_people
-    JSON.parse(self.people)
+    i = 1
+    JSON.parse(self.people).map do |hash|
+      hash.merge! :id => i
+      i += 1
+      hash
+    end
   end
 
   def freshbooks_client

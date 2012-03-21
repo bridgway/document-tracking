@@ -11,9 +11,10 @@ $: << File.expand_path(File.dirname(__FILE__))
 require 'environment'
 require './db/database'
 require 'models/document_file'
+require 'models/person'
 require 'models/document'
 require 'models/user'
-
+require 'models/document_transfer'
 
 class App < Sinatra::Base
   include Environment
@@ -85,11 +86,19 @@ class App < Sinatra::Base
     erb :show
   end
 
-  get '/documents/new' do
-    erb :new
+  def json(content)
+    content_type :json
+    content.to_json
   end
 
   post '/documents/new' do
+    doc = Document.new params[:document]
+    puts params
+    if doc.save
+      json doc
+    else
+      json doc.errors
+    end
   end
 
   post '/upload' do
@@ -105,9 +114,9 @@ class App < Sinatra::Base
         url: file.source.thumb.url
       }
 
-      return attrs.to_json
+      json attrs
     else
-      return file.errors.to_json
+      json "aoeu"
     end
   end
 end
