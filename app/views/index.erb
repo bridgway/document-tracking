@@ -9,14 +9,14 @@
     <p>Process them and move forward.</p>
   </header>
 
-  <ul>
+  <ul class='document-list'>
     <% if @signed.any? %>
       <% @signed.each do |doc| %>
       <li><h3><%= File.basename(doc.file.source.url) %>
         <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
       <% end %>
     <% else %>
-      <p>No signed document.s</p>
+      <p>No signed documents.</p>
     <% end %>
   </ul>
 
@@ -29,9 +29,9 @@
   </header>
 
 
-  <ul>
+  <ul class='document-list'>
     <% @unsigned.each do |doc| %>
-      <li><h3><%= File.basename(doc.file.source.url) %>
+      <li><h3><%= link_to doc.filename, doc %>
         <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
     <% end %>
   </ul>

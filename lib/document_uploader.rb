@@ -24,4 +24,12 @@ class DocumentUploader < CarrierWave::Uploader::Base
   def set_content_type(*args)
     self.file.instance_variable_set(:@content_type, "image/png")
   end
+
+  def store_dir
+    if App.production?
+      # probably S3
+    else
+      "uploads/"
+    end
+  end
 end

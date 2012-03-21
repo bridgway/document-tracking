@@ -34,6 +34,14 @@ class App < Sinatra::Base
   set :public_folder, "#{root}/../../public"
   set :views, "#{root}/views"
 
+  def render_view(name, args = {})
+    path = name.to_sym
+    if args.has_key?(:layout)
+      args[:layout] = ("layouts/" + args[:layout]).to_sym
+    end
+    erb path, args
+  end
+
   def authenticate!
     if !session[:user_id]
       redirect '/login'
@@ -136,6 +144,18 @@ class App < Sinatra::Base
       json attrs
     else
       json "aoeu"
+    end
+  end
+
+  get '/documents/:id' do
+    if params[:id].match /(\d*)(?:-)(.*)?/
+      id = $1
+      slug = $2
+      @doc = current_user.documents.where(:id => id).first
+
+      render_view "documents/new"
+    else
+      # 404 it
     end
   end
 end
