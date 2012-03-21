@@ -8,4 +8,28 @@ class Document < ActiveRecord::Base
   validates :message, :presence => true
   validates :files, :presence => true
   validates :recipients, :presence => true
+
+  STATUSES = {
+    :unsigned => 0,
+    :signed => 1
+  }
+
+  READ_STATUSES = STATUSES.invert
+
+  class UnkownDocumentStatus < Exception; end
+
+  def status
+    raw = read_attribute(:status)
+    READ_STATUSES[raw]
+  end
+
+  def status=(sym)
+    status = STATUSES[sym]
+
+    if !status
+      raise UnkownDocumentStatus
+    end
+
+    write_attribute(:status, status)
+  end
 end
