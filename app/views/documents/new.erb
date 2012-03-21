@@ -1,7 +1,63 @@
 <section id='show-document'>
 
-<h1><%= @doc.filename %></h1>
+  <header>
+    <h1><%= @doc.filename %></h1>
+    <div class='clear'></div>
+  </header>
+
+<div id='top'>
+  <div id='main'>
+
+    <section id='recipients'>
+      <h2>Sent To:</h2>
+      <ul id='recipients'>
+        <li>Justin Woodbridge, Chris Weisel, Rob Woodbridge</li>
+      </ul>
+    </section>
+
+    <section id='events'>
+      <h2>Activity:</h2>
+      <ul class='bare'>
+        <li><strong>Rob Woodbridge</strong> viewed the document.</li>
+        <li><strong>Chris Weisel</strong> left a comment <span class='comment'>"Looks good.  Signing"</span></li>
+        <li><strong>Justin Woodbridge</strong> Signed the document</span></li>
+      </ul>
+
+    </section>
+
+  </div>
 
 
+  <div id='side'>
+    <div id='side-inner'>
+      <img id='thumbnail' src="<%= @doc.file.source.thumb.url %>">
+
+      <ul class='bare'>
+        <li><a href="#">Download the file</a></li>
+        <li><a href="#">Resend the email</a></li>
+        <li><a href="#">Delete</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<section id='comments-section'>
+  <h2>Comments:</h2>
+  <ul id='comments'>
+    <% 3.times do %>
+      <li>
+        <div class='avatar'>
+          <img src="http://placehold.it/100x100">
+        </div>
+
+        <div class='content'>
+          <p>I have no I have no idea!</p>
+        </div>
+
+      <div class='clear'></div>
+      </li>
+      <% end %>
+  </ul>
+</section>
 
 </section>

@@ -9,7 +9,7 @@
     <p>Process them and move forward.</p>
   </header>
 
-  <ul class='document-list'>
+  <ul class='document-list bare'>
     <% if @signed.any? %>
       <% @signed.each do |doc| %>
       <li><h3><%= File.basename(doc.file.source.url) %>
@@ -29,7 +29,7 @@
   </header>
 
 
-  <ul class='document-list'>
+  <ul class='document-list bare'>
     <% @unsigned.each do |doc| %>
       <li><h3><%= link_to doc.filename, doc %>
         <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
