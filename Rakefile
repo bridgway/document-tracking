@@ -29,11 +29,23 @@ namespace :db do
   task :seed do
     require './db/database'
     puts "Creating test user..."
-    User.create(
+
+    user = User.create(
       :email => "jwoodbridge@me.com",
       :freshbooks_url => "https://woodbridge.freshbooks.com/api/2.1/xml-in",
       :freshbooks_token => "e4e173dbe0aa2cac2f8349ee0edde949"
     )
+
+    puts "creating test document + data"
+
+    file = DocumentFile.new source: File.open('public/test.pdf')
+    file.save
+
+    doc = Document.new message: "a test"
+    doc.recipients << user.people.first
+    doc.files << file
+
+    user.documents << doc
   end
 
   desc "Delete the database"
