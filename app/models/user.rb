@@ -40,6 +40,9 @@ class User < ActiveRecord::Base
     self.documents.signed
   end
 
+  def name
+    [self.first_name, " ", self.last_name].join
+  end
 
   def self.authenticate(email, password=nil)
     user = User.find_by_email(email)

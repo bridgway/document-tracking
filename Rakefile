@@ -31,6 +31,8 @@ namespace :db do
     puts "Creating test user..."
 
     user = User.create(
+      :first_name => "Justin",
+      :last_name => "Woodbridge",
       :email => "jwoodbridge@me.com",
       :freshbooks_url => "https://woodbridge.freshbooks.com/api/2.1/xml-in",
       :freshbooks_token => "e4e173dbe0aa2cac2f8349ee0edde949"
