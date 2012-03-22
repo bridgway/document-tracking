@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :documents
   has_many :files, :class_name => DocumentFile
   has_many :people
-  has_many :comments
+  has_many :comments, :as => :source
 
   after_create do
     f = self.freshbooks_client
