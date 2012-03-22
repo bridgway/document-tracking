@@ -125,6 +125,15 @@ input[type=text]:focus {
   outline: none;
 }
 
+#main-header h1 a {
+  font-size: 25px;
+  color: black;
+}
+
+#main-header h1 a:hover {
+  color: #555;
+}
+
 header {
   margin-bottom: 40px;
 }
