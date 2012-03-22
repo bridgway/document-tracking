@@ -31,9 +31,19 @@ class App < Sinatra::Base
 
   set :session_secret, "secret"
 
-  root = File.dirname(File.expand_path(__FILE__))
-  set :public_folder, "#{root}/../../public"
-  set :views, "#{root}/views"
+  def self.root
+    File.expand_path '.'
+  end
+
+  app_folder_root = File.dirname(File.expand_path(__FILE__))
+  set :public_folder, "#{app_folder_root}/../../public"
+  set :views, "#{app_folder_root}/views"
+
+  CarrierWave.configure do |config|
+    if !App.production?
+      config.root = App.root + "/public"
+    end
+  end
 
   def render_view(name, args = {})
     path = name.to_sym
