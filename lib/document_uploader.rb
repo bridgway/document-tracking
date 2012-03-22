@@ -6,17 +6,25 @@ class DocumentUploader < CarrierWave::Uploader::Base
   storage :file
 
   version :thumb do
-    process :convert_and_scale
+    process :convert_and_scale => '200x200'
 
     def full_filename(for_file)
      super(for_file).chomp(File.extname(super(for_file))) + '.png'
     end
   end
 
-  def convert_and_scale
+  version :large do
+    process :convert_and_scale => '300x400'
+
+    def full_filename(for_file)
+     super(for_file).chomp(File.extname(super(for_file))) + '.png'
+    end
+  end
+
+  def convert_and_scale(size)
     manipulate! do |image|
       image.format 'png'
-      image.resize '200x200'
+      image.resize size
       image
     end
   end
@@ -29,6 +37,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
     if App.production?
       # probably S3
     else
+      # TODO: Use App.root
       "uploads/"
     end
   end
