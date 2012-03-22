@@ -1,78 +1,87 @@
-<section id='updates'>
-  <h2>2 Documents were signed since you were last here.</h2>
-  <a href="#">details...</a>
-</section>
+<section id='document-index'>
 
-<section id='signed'>
-  <header>
-    <h2>Signed Documents</h2>
-    <p>Process them and move forward.</p>
-  </header>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      currentDocument.set('user_id', <%= current_user.id %>)
+    });
+  </script>
 
-  <ul class='document-list bare'>
-    <% if @signed.any? %>
-      <% @signed.each do |doc| %>
-      <li><h3><%= File.basename(doc.file.source.url) %>
-        <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
+  <section id='updates'>
+    <h2>2 Documents were signed since you were last here.</h2>
+    <a href="#">details...</a>
+  </section>
+
+  <section id='signed'>
+    <header>
+      <h2>Signed Documents</h2>
+      <p>Process them and move forward.</p>
+    </header>
+
+    <ul class='document-list bare'>
+      <% if @signed.any? %>
+        <% @signed.each do |doc| %>
+        <li><h3><%= File.basename(doc.file.source.url) %>
+          <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
+        <% end %>
+      <% else %>
+        <p>No signed documents.</p>
       <% end %>
-    <% else %>
-      <p>No signed documents.</p>
-    <% end %>
-  </ul>
+    </ul>
 
-</section>
+  </section>
 
-<section id='outstanding-documents'>
-  <header>
-    <h2>Outstanding Documents</h2>
-    <p style='font-size: 16px;'>These documents have not been signed yet, not much to do but wait.</p>
-  </header>
+  <section id='outstanding-documents'>
+    <header>
+      <h2>Outstanding Documents</h2>
+      <p style='font-size: 16px;'>These documents have not been signed yet, not much to do but wait.</p>
+    </header>
 
 
-  <ul class='document-list bare'>
-    <% @unsigned.each do |doc| %>
-      <li><h3><%= link_to doc.filename, doc %>
-        <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
-    <% end %>
-  </ul>
-</section>
+    <ul class='document-list bare'>
+      <% @unsigned.each do |doc| %>
+        <li><h3><%= link_to doc.filename, doc %>
+          <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
+      <% end %>
+    </ul>
+  </section>
 
 
-<section id='new-document'>
-  <header>
-    <h2>Upload A New Document</h2>
-  </header>
+  <section id='new-document'>
+    <header>
+      <h2>Upload A New Document</h2>
+    </header>
 
 
-  <form id='upload-form' action='/documents/new' method='POST'>
+    <form id='upload-form' action='/documents/new' method='POST'>
 
-    <section id='upload'>
-      <div id='drop'>
-        <div class='inner'>
-          <h2>+ Upload a File</h2>
-          <input type='file' style='display: none;'>
-        </div>
-      </div>
-
-      <ul id='document-thumbnails'>
-
-      </ul>
-    </section>
-
-    <section id='fields'>
-        <div class='block'>
-          <label>To:</label>
-          <input type='text' data-people='<%= @user.people_json %>' id='name-field' spellcheck='false' autocomplete='off' />
+      <section id='upload'>
+        <div id='drop'>
+          <div class='inner'>
+            <h2>+ Upload a File</h2>
+            <input type='file' style='display: none;'>
+          </div>
         </div>
 
-        <div class='block'>
-          <label>Message:</label>
-          <textarea id='message'></textarea>
+        <ul id='document-thumbnails'>
 
-          <button>Send It</button>
-        </div>
-    </section>
-  </form>
+        </ul>
+      </section>
+
+      <section id='fields'>
+          <div class='block'>
+            <label>To:</label>
+            <input type='text' data-people='<%= @user.people_json %>' id='name-field' spellcheck='false' autocomplete='off' />
+          </div>
+
+          <div class='block'>
+            <label>Message:</label>
+            <textarea id='message'></textarea>
+
+            <button>Send It</button>
+          </div>
+      </section>
+    </form>
+  </section>
 </section>
 
 <div class='clear'></div>

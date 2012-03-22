@@ -49,6 +49,10 @@ class App < Sinatra::Base
     end
   end
 
+  def partial(name, locals = {})
+    erb name.to_sym, layout: false, locals: locals
+  end
+
   def current_user
     # TODO: Cache this in a an instance variable
     User.where(id: session[:user_id]).first
@@ -133,6 +137,7 @@ class App < Sinatra::Base
     end
 
     doc.message = json[:message]
+    doc.user_id = json[:user_id]
 
     if doc.save
       json doc
@@ -185,9 +190,9 @@ class App < Sinatra::Base
     nil
   end
 
-  get '/comments' do
-    params = { "person_id" => 1 }
-    json find_source params
+  get '/test' do
+    puts partial "comments/comment", :comment => Comment.last
+    "aoeu"
   end
 
   post '/comments' do
@@ -199,7 +204,7 @@ class App < Sinatra::Base
     })
 
     if comment.save
-      json comment
+      return partial "comments/comment", :comment => comment
     else
       json comment.errors
     end

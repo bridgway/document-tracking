@@ -44,18 +44,28 @@
 <section id='comments-section'>
   <h2>Comments:</h2>
   <ul id='comments'>
-    <% @doc.comments.each do |comment| %>
-      <li>
-        <div class='avatar'>
-          <img src="<%= comment.gravatar %>">
-        </div>
+    <% if @doc.comments.any? %>
+      <% @doc.comments.each do |comment| %>
+        <li>
+          <div class='avatar'>
+            <img src="<%= comment.gravatar %>">
+          </div>
 
-        <div class='content'>
-          <%= comment.body %>
-        </div>
+          <div class='content'>
+            <header style='border: none; margin-bottom: 10px;'>
+              <strong><%= comment.source.name %></strong>
+            </header>
 
-      <div class='clear'></div>
-      </li>
+            <%= comment.body %>
+          </div>
+
+        <div class='clear'></div>
+        </li>
+      <% end %>
+    <% else %>
+
+    <p class='empty'>No comments yet.</p>
+
     <% end %>
   </ul>
 

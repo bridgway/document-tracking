@@ -278,8 +278,14 @@ button {
 #side {
   float: right;
   width: 250px;
-  background-color: #EEE;
   padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #CCC;
+}
+
+#side a {
+  color: #333 !important;
+  font-weight: bold;
 }
 
 #main section {
@@ -338,8 +344,8 @@ span.comment {
 
 
 #top {
-  margin-bottom: 100px;
-  min-height: 200px;
+  margin-bottom: 40px;
+  min-height: 300px;
 }
 
 #comments {
@@ -370,4 +376,17 @@ span.comment {
 #comments li .content p {
   margin-top: 0px;
   line-height: 1.4em;
+}
+
+#comments-section {
+  display: block;
+}
+
+#comments-section form {
+  margin-top: 80px;
+}
+
+p.empty {
+  color: #444;
+  font-size: 14px;
 }
