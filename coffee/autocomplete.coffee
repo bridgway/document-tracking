@@ -25,7 +25,6 @@ $ ->
 
           matches.push bundled
 
-    window.matches = matches
     matches
 
   setupSearchResults = (parent, results, hidden=true) ->
