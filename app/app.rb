@@ -17,6 +17,7 @@ require 'models/person'
 require 'models/document'
 require 'models/user'
 require 'models/document_transfer'
+require 'models/comment'
 
 class App < Sinatra::Base
   include Environment
