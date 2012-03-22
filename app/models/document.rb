@@ -6,6 +6,7 @@ class Document < ActiveRecord::Base
   has_many :document_transfers
   has_many :recipients, :class_name => Person, :through => :document_transfers
   has_many :files, :class_name => DocumentFile, :through => :document_transfers
+  has_many :comments
 
   validates :message, :presence => true
   validates :file, :presence => true

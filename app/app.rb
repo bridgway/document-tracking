@@ -60,6 +60,11 @@ class App < Sinatra::Base
 
   helpers do
     include Helpers
+
+    def current_user
+      # TODO: Cache this in a an instance variable
+      User.where(id: session[:user_id]).first
+    end
   end
 
   get '/' do
@@ -110,6 +115,11 @@ class App < Sinatra::Base
     content.to_json
   end
 
+
+  #
+  #  Document Routes
+  #
+
   post '/documents/new' do
     doc = Document.new
     json = JSON.parse params[:document], symbolize_names: true
@@ -159,6 +169,47 @@ class App < Sinatra::Base
       # 404 it
     end
   end
+
+
+  #
+  #  Comment Routes
+  #
+
+  # This shit is why people hate active record.
+  def find_source(hash)
+    hash.each do |name, value|
+      if name =~ /(user|person)_id$/
+        return $1.classify.constantize.find(value)
+      end
+    end
+    nil
+  end
+
+  get '/comments' do
+    params = { "person_id" => 1 }
+    json find_source params
+  end
+
+  post '/comments' do
+    source = find_source params[:comment]
+    comment = source.comments.build ({
+      source: source,
+      document_id: params[:comment][:document_id],
+      body: params[:comment][:body],
+    })
+
+    if comment.save
+      json comment
+    else
+      json comment.errors
+    end
+  end
+
+
+  #
+  #  Misc Routes
+  #
+
 
   not_found do
     redirect '/'

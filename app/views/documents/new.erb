@@ -44,20 +44,29 @@
 <section id='comments-section'>
   <h2>Comments:</h2>
   <ul id='comments'>
-    <% 3.times do %>
+    <% @doc.comments.each do |comment| %>
       <li>
         <div class='avatar'>
-          <img src="http://placehold.it/100x100">
+          <img src="<%= comment.gravatar %>">
         </div>
 
         <div class='content'>
-          <p>I have no I have no idea!</p>
+          <%= comment.body %>
         </div>
 
       <div class='clear'></div>
       </li>
-      <% end %>
+    <% end %>
   </ul>
+
+  <form id='add-comment' action='/comments' method='post'>
+    <p><strong>Add A Comment</strong></p>
+    <textarea name='comment[body]'></textarea>
+    <input type='hidden' value='<%= current_user.id %>' name='comment[user_id]'>
+    <input type='hidden' value='<%= @doc.id %>' name='comment[document_id]'>
+    <button>Add Comment</button>
+  </form>
+
 </section>
 
 </section>
