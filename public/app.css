@@ -61,7 +61,7 @@ a {
 }
 
 a:hover {
-  color: black;
+  color: #326ECF !important;
 }
 
 #updates h2 {
@@ -283,8 +283,10 @@ button {
   border: 1px solid #CCC;
 }
 
+/* TODO: I don't like using important here */
+
 #side a {
-  color: #333 !important;
+  color: #333;
   font-weight: bold;
 }
 
