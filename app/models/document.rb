@@ -4,7 +4,12 @@ class Document < ActiveRecord::Base
   belongs_to :user
 
   has_many :document_transfers
+
   has_many :recipients, :class_name => Person, :through => :document_transfers
+
+  # TODO: Might be able to replace my custom file accessors by adding :limit => 1
+  # http://stackoverflow.com/questions/1480631/has-one-and-has-many-in-same-model-how-does-rails-track-them
+
   has_many :files, :class_name => DocumentFile, :through => :document_transfers
   has_many :comments
 
@@ -70,5 +75,9 @@ class Document < ActiveRecord::Base
 
   def filename
     File.basename self.file.source.url
+  end
+
+  def signee
+    self.recipients.signee.first
   end
 end
