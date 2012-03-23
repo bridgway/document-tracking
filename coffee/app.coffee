@@ -96,11 +96,17 @@ $ ->
       showAddCCField: (ev) ->
         ev.preventDefault()
 
+        if $('#cc-block').is(":hidden")
+          $(ev.target).text "Hide CC Field"
+        else
+          $(ev.target).text "+ Add CC"
+
         $('#cc-block').slideToggle 'fast', =>
           $('#cc-block').find('#cc-field').focus().autocomplete
             dataSource: $('#name-field')
             multiple: true
             shouldSearch: this.shouldSearch
+
 
       handleSubmit: (ev) ->
         ev.preventDefault()
