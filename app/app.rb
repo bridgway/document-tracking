@@ -179,7 +179,7 @@ class App < Sinatra::Base
       slug = $2
       @doc = current_user.documents.where(:id => id).first
 
-      render_view "documents/new"
+      render_view "documents/show"
     else
       # 404 it
     end
