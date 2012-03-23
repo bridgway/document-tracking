@@ -27,6 +27,7 @@ $ ->
 
       events:
         'submit': 'handleSubmit'
+        'click #add-cc a': 'showAddCCField'
 
       initialize: (model) ->
         @model = model
@@ -79,6 +80,12 @@ $ ->
         this.drawThumbnail()
         this.recordFile()
         this.reset()
+
+      showAddCCField: (ev) ->
+        ev.preventDefault()
+
+        $('#cc-block').slideToggle 'fast', ->
+          $('#cc-block').find('input[type=text]').focus().autocomplete dataSource: $('#name-field')
 
       handleSubmit: (ev) ->
         ev.preventDefault()

@@ -73,6 +73,16 @@
             <input type='text' data-people='<%= @user.people_json %>' id='name-field' spellcheck='false' autocomplete='off' />
           </div>
 
+         <div class='block' id='cc-block'>
+            <label>CC:</label>
+            <input type='text' data-people='<%= @user.people_json %>' id='name-field' spellcheck='false' autocomplete='off' />
+          </div>
+
+          <div id='add-cc'>
+            <a href="#" class='action'>+ Add CC</a>
+          </div>
+
+
           <div class='block'>
             <label>Message:</label>
             <textarea id='message'></textarea>
