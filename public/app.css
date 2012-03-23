@@ -25,10 +25,6 @@ label {
   color: #777;
 }
 
-#outstanding-documents ul {
-  padding-left: 20px;
-}
-
 body {
   font-family: "Helvetica";
 }
@@ -48,10 +44,6 @@ body {
 ul.bare {
   list-style: none;
   padding-left: 0;
-}
-
-#updates a {
-
 }
 
 a {
@@ -235,12 +227,9 @@ button {
   clear: both
 }
 
-.document-list {
-
-}
-
 .document-list h3 a {
-  font-size: 18px;
+  font-size: 20px;
+  color: #444;
 }
 
 #show-document header {
@@ -325,7 +314,7 @@ span.comment {
   border: 1px solid #DDD;
 }
 
-#side p, li {
+#side p, #side li {
   font-size: 14px;
 }
 
