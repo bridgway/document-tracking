@@ -34,7 +34,13 @@ $ ->
         @thumbnailList = $('#document-thumbnails')
         @noFiles = true
 
-        $('#name-field').autocomplete()
+        $nameField = $('#name-field')
+
+        $nameField.autocomplete multiple: false, shouldSearch: this.shouldSearch
+
+        $nameField.on
+          'value:set': (ev, value) ->
+            $nameField.data 'selected-person', value
 
         # Bind our fileupload handler to the drop zone.
 
@@ -49,6 +55,12 @@ $ ->
 
           # have to wrap it in the anonymous function to keep track of this.
           done: (ev, data) => this.uploadFinished(ev, data)
+
+      shouldSearch: (el) ->
+        if el.data 'selected-person'
+          return false
+
+        true
 
       drawThumbnail: ->
         latest = _.last @model.get('files')
@@ -76,7 +88,7 @@ $ ->
         file = data.result
         @model.get('files').push file
 
-        # might be cleaner to just past the latest file to these methods instead of using @model.
+        # might be cleaner to just pass the latest file to these methods instead of using @model.
         this.drawThumbnail()
         this.recordFile()
         this.reset()
@@ -84,8 +96,11 @@ $ ->
       showAddCCField: (ev) ->
         ev.preventDefault()
 
-        $('#cc-block').slideToggle 'fast', ->
-          $('#cc-block').find('input[type=text]').focus().autocomplete dataSource: $('#name-field')
+        $('#cc-block').slideToggle 'fast', =>
+          $('#cc-block').find('#cc-field').focus().autocomplete
+            dataSource: $('#name-field')
+            multiple: true
+            shouldSearch: this.shouldSearch
 
       handleSubmit: (ev) ->
         ev.preventDefault()
