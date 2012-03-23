@@ -38,7 +38,8 @@ $ ->
       left: parentOffset.left
 
     $div.width parent.width()
-    $('body').append $div
+    parent.after $div
+    $div
 
   drawSearchResults = (searchResultsDiv, results) ->
     searchResultsDiv.show()
@@ -51,14 +52,14 @@ $ ->
 
       searchResultsDiv.find('ul').append $li
 
-  resetSearchResults = (el) ->
-    $('#search-results').find('ul').empty()
-    $('#search-results').hide()
+  resetSearchResults = (searchResultsDiv, textField) ->
+    searchResultsDiv.find('ul').empty()
+    searchResultsDiv.hide()
 
-    el.attr 'data-search-results-shown', false
+    textField.attr 'data-search-results-shown', false
 
-  select = (textField) ->
-    selected = $('#search-results').find('ul').children().first()
+  select = (textField, searchDiv) ->
+    selected = searchDiv.find('ul').children().first()
     person = selected.text()
 
     oldVal = textField.val()
@@ -92,17 +93,17 @@ $ ->
 
     textField.data('recipients', recipients)
 
-    resetSearchResults(textField)
-    verifyAndRecordNames(textField)
+    resetSearchResults(searchDiv, textField)
+    verifyAndRecordNames(textField, searchDiv)
 
-  handleShortcuts = (parent, ev) ->
+  handleShortcuts = (parent, ev, searchDiv) ->
     completing = JSON.parse parent.attr 'data-search-results-shown'
 
     if completing
       switch ev.keyCode
         when Keys.tab
          ev.preventDefault()
-         select(parent)
+         select(parent, searchDiv)
 
         # when Keys.up
 
@@ -113,19 +114,21 @@ $ ->
     split = $.trim parent.val().split(',')
 
 
-  $.fn.autocomplete = ->
+  $.fn.autocomplete = (opts = {}) ->
     # *this* is the object that's being autocompleted.
 
-    people = JSON.parse this.attr('data-people')
+    opts['dataSource'] ||= this
+
+    people = JSON.parse opts['dataSource'].attr('data-people')
 
     this.attr('data-search-results-shown', false)
 
     # get the search results div on the DOM, hidden for now.
-    setupSearchResults this
+    $searchDiv = setupSearchResults this
 
     this.on
       'keydown': (ev) =>
-        handleShortcuts(this, ev)
+        handleShortcuts(this, ev, $searchDiv)
 
       'keyup': (ev) =>
         text = $(ev.target).val()
@@ -147,16 +150,16 @@ $ ->
         if comma
           query = $.trim text.substring(index + 1)
 
-          results = search(query, people)
+          results = search(query, people, $searchDiv)
         else
-          results = search(text, people)
+          results = search(text, people, $searchDiv)
 
         if results.length == 0
-          resetSearchResults(this)
+          resetSearchResults($searchDiv, this)
         else
-          drawSearchResults $('#search-results'), results
+          drawSearchResults $searchDiv, results
           this.attr 'data-search-results-shown', true
 
       'focusout': (ev) =>
-        resetSearchResults this
+        resetSearchResults $searchDiv, this
         verifyAndRecordNames(this)
