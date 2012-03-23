@@ -68,26 +68,32 @@ $ ->
 
     oldVal = textField.val()
 
-    if not oldVal.match(/,/)
-      textField.val person + ", "
+    if config['multiple']
+
+      if not oldVal.match(/,/)
+        textField.val person + ", "
+      else
+        cursorLoc = oldVal.length
+
+        char = null
+        index = cursorLoc
+        comma = false
+
+        while index > 0
+          char = oldVal.charAt index
+          if char == ','
+            comma = true
+            break
+          else
+            index -= 1
+
+        # pad it by two
+        fragment = oldVal.substring(index + 2, cursorLoc)
+        textField.val oldVal.replace(fragment, person + ", ")
     else
-      cursorLoc = oldVal.length
-
-      char = null
-      index = cursorLoc
-      comma = false
-
-      while index > 0
-        char = oldVal.charAt index
-        if char == ','
-          comma = true
-          break
-        else
-          index -= 1
-
-      # pad it by two
-      fragment = oldVal.substring(index + 2, cursorLoc)
-      textField.val oldVal.replace(fragment, person + ", ")
+      textField.val person
+      textField.data 'value', person
+      textField.trigger 'value:set', person
 
     recipients = textField.data('recipients')
     recipients ||= []
@@ -98,7 +104,12 @@ $ ->
     textField.data('recipients', recipients)
 
     resetSearchResults(config, textField)
-    verifyAndRecordNames(textField, config['searchDiv'])
+
+    # TODO: Support verify delegate function.
+    # verify = config['verify']
+    # if verify? and verify person
+
+#    verifyAndRecordNames(textField, config)
 
   handleShortcuts = (parent, ev, config) ->
     completing = JSON.parse parent.attr 'data-search-results-shown'
@@ -114,8 +125,12 @@ $ ->
         # when Key.down
 
   # TODO: Right now this thing records whitespace..  when name.length > 0 is not working..
-  verifyAndRecordNames = (parent) ->
-    split = $.trim parent.val().split(',')
+  # eh this really needs to be delegated out
+  verifyAndRecordNames = (parent, config) ->
+    if config['multiple']
+      split = $.trim parent.val().split(',')
+    else
+      name = parent.val()
 
 
   $.fn.autocomplete = (config = {}) ->
@@ -123,8 +138,6 @@ $ ->
 
     config['multiple'] = true if not config['multiple']?
     config['dataSource'] ||= this
-
-    console.log config
 
     people = JSON.parse config['dataSource'].attr('data-people')
 
@@ -141,33 +154,51 @@ $ ->
       'keyup': (ev) =>
         text = $(ev.target).val()
 
-        cursorLoc = this[0].selectionStart || 0
+        if config['multiple']
+          cursorLoc = this[0].selectionStart || 0
 
-        char = null
-        index = cursorLoc
-        comma = false
+          char = null
+          index = cursorLoc
+          comma = false
 
-        while index > 0
-          char = text.charAt index
-          if char == ','
-            comma = true
-            break
+          while index > 0
+            char = text.charAt index
+            if char == ','
+              comma = true
+              break
+            else
+              index -= 1
+
+          # this is kinda shitty.
+          if comma
+            query = $.trim text.substring(index + 1)
+
+            results = search(query, people, config)
           else
-            index -= 1
+            results = search(text, people, config)
 
-        if comma
-          query = $.trim text.substring(index + 1)
+          if results.length == 0
+            resetSearchResults(config, this)
+          else
+            drawSearchResults config, results
+            this.attr 'data-search-results-shown', true
 
-          results = search(query, people, config)
         else
-          results = search(text, people, config)
+          # let the user supply some sort of predicate
+          # TODO: Handle undefined function
+          if config['shouldSearch'] $(this)
+            results = search(text, people, config)
 
-        if results.length == 0
-          resetSearchResults(config, this)
-        else
-          drawSearchResults config, results
-          this.attr 'data-search-results-shown', true
+            if results.length == 0
+              resetSearchResults(config, this)
+            else
+              drawSearchResults config, results
+              this.attr 'data-search-results-shown', true
+
+      'focusin': (ev) =>
+        this.removeData 'selected-person'
 
       'focusout': (ev) =>
         resetSearchResults config, this
-        verifyAndRecordNames(this)
+
+        # verifyAndRecordNames(this)
