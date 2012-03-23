@@ -41,7 +41,9 @@ $ ->
     parent.after $div
     $div
 
-  drawSearchResults = (searchResultsDiv, results) ->
+  drawSearchResults = (config, results) ->
+    searchResultsDiv = config['searchDiv']
+
     searchResultsDiv.show()
     searchResultsDiv.find('ul').empty()
 
@@ -52,14 +54,16 @@ $ ->
 
       searchResultsDiv.find('ul').append $li
 
-  resetSearchResults = (searchResultsDiv, textField) ->
+  resetSearchResults = (config, textField) ->
+    searchResultsDiv = config['searchDiv']
+
     searchResultsDiv.find('ul').empty()
     searchResultsDiv.hide()
 
     textField.attr 'data-search-results-shown', false
 
-  select = (textField, searchDiv) ->
-    selected = searchDiv.find('ul').children().first()
+  select = (textField, config) ->
+    selected = config['searchDiv'].find('ul').children().first()
     person = selected.text()
 
     oldVal = textField.val()
@@ -93,17 +97,17 @@ $ ->
 
     textField.data('recipients', recipients)
 
-    resetSearchResults(searchDiv, textField)
-    verifyAndRecordNames(textField, searchDiv)
+    resetSearchResults(config, textField)
+    verifyAndRecordNames(textField, config['searchDiv'])
 
-  handleShortcuts = (parent, ev, searchDiv) ->
+  handleShortcuts = (parent, ev, config) ->
     completing = JSON.parse parent.attr 'data-search-results-shown'
 
     if completing
       switch ev.keyCode
         when Keys.tab
          ev.preventDefault()
-         select(parent, searchDiv)
+         select(parent, config)
 
         # when Keys.up
 
@@ -114,21 +118,25 @@ $ ->
     split = $.trim parent.val().split(',')
 
 
-  $.fn.autocomplete = (opts = {}) ->
+  $.fn.autocomplete = (config = {}) ->
     # *this* is the object that's being autocompleted.
 
-    opts['dataSource'] ||= this
+    config['multiple'] = true if not config['multiple']?
+    config['dataSource'] ||= this
 
-    people = JSON.parse opts['dataSource'].attr('data-people')
+    console.log config
+
+    people = JSON.parse config['dataSource'].attr('data-people')
 
     this.attr('data-search-results-shown', false)
 
     # get the search results div on the DOM, hidden for now.
-    $searchDiv = setupSearchResults this
+    config['searchDiv'] = $(setupSearchResults(this))
+
 
     this.on
       'keydown': (ev) =>
-        handleShortcuts(this, ev, $searchDiv)
+        handleShortcuts(this, ev, config)
 
       'keyup': (ev) =>
         text = $(ev.target).val()
@@ -150,16 +158,16 @@ $ ->
         if comma
           query = $.trim text.substring(index + 1)
 
-          results = search(query, people, $searchDiv)
+          results = search(query, people, config)
         else
-          results = search(text, people, $searchDiv)
+          results = search(text, people, config)
 
         if results.length == 0
-          resetSearchResults($searchDiv, this)
+          resetSearchResults(config, this)
         else
-          drawSearchResults $searchDiv, results
+          drawSearchResults config, results
           this.attr 'data-search-results-shown', true
 
       'focusout': (ev) =>
-        resetSearchResults $searchDiv, this
+        resetSearchResults config, this
         verifyAndRecordNames(this)
