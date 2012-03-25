@@ -19,15 +19,15 @@ class Document < ActiveRecord::Base
   validates :file, :presence => true
   validates :recipients, :presence => true
 
-  STATUSES = {
+  WRITE_STATUSES = {
     :unsigned => 0,
     :signed => 1
   }
 
-  READ_STATUSES = STATUSES.invert
+  READ_STATUSES = WRITE_STATUSES.invert
 
-  scope :unsigned, where(:status => STATUSES[:unsigned])
-  scope :signed, where(:status => STATUSES[:signed])
+  scope :unsigned, where(:status => WRITE_STATUSES[:unsigned])
+  scope :signed, where(:status => WRITE_STATUSES[:signed])
 
   class UnkownDocumentStatus < Exception; end
 
@@ -37,7 +37,7 @@ class Document < ActiveRecord::Base
   end
 
   def status=(sym)
-    status = STATUSES[sym]
+    status = WRITE_STATUSES[sym]
 
     if !status
       raise UnkownDocumentStatus
