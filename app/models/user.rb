@@ -1,4 +1,4 @@
-require 'freshbooks'
+require 'peoplekit/peoplekit'
 
 class User < ActiveRecord::Base
 
@@ -25,7 +25,9 @@ class User < ActiveRecord::Base
   end
 
   def freshbooks_client
-    @freshbooks_client ||= Freshbooks.new self.freshbooks_url, self.freshbooks_token
+    config = { :url => self.freshbooks_url, :token => self.freshbooks_token }
+
+    @freshbooks_client ||= PeopleKit.connect :freshbooks, config
   end
 
   def people_json

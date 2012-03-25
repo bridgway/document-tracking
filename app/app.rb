@@ -10,6 +10,8 @@ $: << File.expand_path(File.dirname(__FILE__))
 
 require 'helpers'
 
+require 'peoplekit/peoplekit'
+
 require 'environment'
 require './db/database'
 require 'models/document_file'
