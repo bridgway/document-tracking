@@ -1,6 +1,8 @@
 require 'pathname'
 
 class Document < ActiveRecord::Base
+  serialize :events, JSON
+
   belongs_to :user
 
   has_many :document_transfers
