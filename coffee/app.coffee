@@ -97,7 +97,7 @@ $ ->
         ev.preventDefault()
 
         if $('#cc-block').is(":hidden")
-          $(ev.target).text "Hide CC Field"
+          $(ev.target).text "Remove CC"
         else
           $(ev.target).text "+ Add CC"
 
