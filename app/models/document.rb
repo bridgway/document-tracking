@@ -29,6 +29,9 @@ class Document < ActiveRecord::Base
   scope :unsigned, where(:status => WRITE_STATUSES[:unsigned])
   scope :signed, where(:status => WRITE_STATUSES[:signed])
 
+
+  after_create :add_creation_event
+
   class UnkownDocumentStatus < Exception; end
 
   def status
@@ -81,5 +84,12 @@ class Document < ActiveRecord::Base
 
   def signee
     self.recipients.signee.first
+  end
+
+  def add_creation_event
+    self.events << {
+      :timestamp => self.created_at,
+      :text => "Document was sent."
+    }
   end
 end
