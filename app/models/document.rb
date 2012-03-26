@@ -89,7 +89,8 @@ class Document < ActiveRecord::Base
   def add_creation_event
     self.events << {
       :timestamp => self.created_at,
-      :text => "Document was sent."
+      :text => "Document was sent.",
+      :type => :creation
     }
   end
 end
