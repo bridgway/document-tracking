@@ -18,9 +18,14 @@
     <section id='events'>
       <h2>Activity:</h2>
       <ul class='bare'>
-        <li><strong>Rob Woodbridge</strong> viewed the document.</li>
-        <li><strong>Chris Weisel</strong> left a comment <span class='comment'>"Looks good.  Signing"</span></li>
-        <li><strong>Justin Woodbridge</strong> Signed the document</span></li>
+
+        <% @doc.events.each do |event| %>
+          <% if event["type"] == "creation" %>
+            <li><%= event["text"] %></li>
+          <% else %>
+            <li><strong><%= event["source"] %></strong><%= event["text"] %></li>
+          <% end %>
+        <% end %>
       </ul>
 
     </section>
