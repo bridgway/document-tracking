@@ -46,16 +46,32 @@ $ ->
 
 
       setupValidation: ->
+        validPerson = (name) ->
+          people = $('#name-field').data('people')
+          names = _.pluck people, 'name'
+
+          _.include names, name
+
+        $.validator.addMethod 'validPerson', validPerson, "Don't know who that is!"
+
         this.$el.validate
           # make sure we don't ignore the hidden file input.
           ignore: false
 
           rules:
-              to: required: true
-              file: required: true, accept: "pdf"
+              to:
+                required: true
+                validPerson: true
+
+              file:
+                required: true
+                accept: "pdf"
 
           messages:
-              to: "Who do you want to send the document to?"
+              to:
+                required: "Who do you want to send the document to?"
+                validPerson: "Don't know who that is."
+
               message: "Make sure you write a message."
               file: "Make sure you upload a PDF."
 
