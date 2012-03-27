@@ -12,6 +12,9 @@ require 'helpers'
 
 require 'peoplekit/peoplekit'
 
+require 'action_mailer'
+require 'letter_opener'
+
 require 'environment'
 require './db/database'
 require 'models/document_file'
@@ -24,27 +27,38 @@ require 'models/comment'
 class App < Sinatra::Base
   include Environment
 
-  enable :sessions
+  configure do
+    enable :sessions
 
-  register Barista::Integration::Sinatra
-  Barista.root = "coffee/"
+    register Barista::Integration::Sinatra
+    Barista.root = "coffee/"
 
-  register Sinatra::Flash
+    register Sinatra::Flash
 
-  set :session_secret, "secret"
+    set :session_secret, "secret"
 
-  def self.root
-    File.expand_path '.'
+    app_folder_root = File.dirname(File.expand_path(__FILE__))
+    set :public_folder, "#{app_folder_root}/../../public"
+    set :views, "#{app_folder_root}/views"
   end
 
-  app_folder_root = File.dirname(File.expand_path(__FILE__))
-  set :public_folder, "#{app_folder_root}/../../public"
-  set :views, "#{app_folder_root}/views"
+  configure :production do
+    ActionMailer::Base.action_mailer.delivery_method   = :postmark
+    ActionMailer::Base.postmark_settings = { :api_key => "c8214e41-3e2a-4646-a075-292bfae973c1" }
+  end
+
+  configure :development do
+    ActionMailer::Base.delivery_method = :letter_opener
+  end
 
   CarrierWave.configure do |config|
     if !App.production?
       config.root = App.root + "/public"
     end
+  end
+
+  def self.root
+    File.expand_path '.'
   end
 
   def render_view(name, args = {})

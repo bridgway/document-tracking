@@ -11,9 +11,12 @@ gem 'rest-client'
 gem 'sinatra-flash'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'postmark-rails'
+gem 'actionmailer'
 
 group :development do
   gem 'shotgun'
+  gem 'letter_opener'
 end
 
 group :production do
