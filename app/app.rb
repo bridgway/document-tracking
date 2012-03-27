@@ -152,7 +152,13 @@ class App < Sinatra::Base
       doc.recipients << Person.find_by_name(name)
     end
 
-    doc.save
+    if doc.save
+      # TODO: I need to make a consistent module with helpers for generating urls.
+      redirect '/documents/' + doc.slug
+    else
+      flash[:error] = "Something went wrong.  We are working on it."
+      redirect '/'
+    end
   end
 
   post '/upload' do
