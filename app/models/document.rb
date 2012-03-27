@@ -29,7 +29,7 @@ class Document < ActiveRecord::Base
   scope :unsigned, where(:status => WRITE_STATUSES[:unsigned])
   scope :signed, where(:status => WRITE_STATUSES[:signed])
 
-  before_save :add_creation_event
+  before_create :add_creation_event
 
   class UnkownDocumentStatus < Exception; end
 
