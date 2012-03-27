@@ -29,7 +29,6 @@ class Document < ActiveRecord::Base
   scope :unsigned, where(:status => WRITE_STATUSES[:unsigned])
   scope :signed, where(:status => WRITE_STATUSES[:signed])
 
-
   after_create :add_creation_event
 
   class UnkownDocumentStatus < Exception; end
@@ -83,7 +82,12 @@ class Document < ActiveRecord::Base
   end
 
   def signee
-    self.recipients.signee.first
+    self.recipients.where(:id => self.signee_id).first
+  end
+
+  def signee=(person)
+    # probably should validate if the person is a part of our recipients.
+    self.update_attributes :signee_id => person.id
   end
 
   def add_creation_event
