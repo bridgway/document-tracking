@@ -55,10 +55,10 @@
     <form id='upload-form' action='/documents/new' method='POST'>
 
       <section id='upload'>
-        <div id='drop'>
+        <div id=''>
           <div class='inner'>
-            <h2>+ Upload a File</h2>
-            <input type='file' style='display: none;'>
+            <h2>Upload a PDF</h2>
+            <input type='file'  class='required file' name='file'>
           </div>
         </div>
 
@@ -70,12 +70,12 @@
       <section id='fields'>
           <div class='block'>
             <label>To:</label>
-            <input type='text' data-people='<%= @user.people_json %>' id='name-field' spellcheck='false' autocomplete='off' />
+            <input type='text' data-people='<%= @user.people_json %>' id='name-field' spellcheck='false' autocomplete='off' name='to' class='required to'/>
           </div>
 
          <div class='block' id='cc-block'>
             <label>CC:</label>
-            <input type='text' data-people='<%= @user.people_json %>' id='cc-field' spellcheck='false' autocomplete='off' />
+            <input type='text' data-people='<%= @user.people_json %>' id='cc-field' spellcheck='false' autocomplete='off' name='cc'/>
           </div>
 
           <div id='add-cc'>
@@ -85,7 +85,7 @@
 
           <div class='block'>
             <label>Message:</label>
-            <textarea id='message'></textarea>
+            <textarea id='message' name='message' class='required message'></textarea>
 
             <button>Send It</button>
           </div>

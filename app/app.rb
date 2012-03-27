@@ -161,7 +161,7 @@ class App < Sinatra::Base
   end
 
   post '/upload' do
-    temp_file = params[:files][0]
+    temp_file = params[:file]
     file = DocumentFile.new(:user_id => current_user.id)
     file.source = temp_file
 

@@ -34,6 +34,8 @@ $ ->
         @thumbnailList = $('#document-thumbnails')
         @noFiles = true
 
+        this.setupValidation()
+
         $nameField = $('#name-field')
 
         $nameField.autocomplete multiple: false, shouldSearch: this.shouldSearch
@@ -42,19 +44,27 @@ $ ->
           'value:set': (ev, value) ->
             $nameField.data 'selected-person', value
 
-        # Bind our fileupload handler to the drop zone.
 
-        $('#drop').fileupload
-          dataType: 'json'
-          dropZone: $('#drop')
-          url: '/upload'
+      setupValidation: ->
+        this.$el.validate
+          # make sure we don't ignore the hidden file input.
+          ignore: false
 
-          add: (ev, data) =>
-            this.switchToUploading()
-            data.submit()
+          rules:
+              to: required: true
+              file: required: true, accept: "pdf"
 
-          # have to wrap it in the anonymous function to keep track of this.
-          done: (ev, data) => this.uploadFinished(ev, data)
+          messages:
+              to: "Who do you want to send the document to?"
+              message: "Make sure you write a message."
+              file: "Make sure you upload a PDF."
+
+          errorPlacement: (error, el) ->
+            if el.attr('name') is 'file'
+              $('#upload').append error
+            else
+              error.insertAfter el
+
 
       shouldSearch: (el) ->
         if el.data 'selected-person'
@@ -110,7 +120,7 @@ $ ->
 
       handleSubmit: (ev) ->
         ev.preventDefault()
-
+        return false
         # I don't like doing this here, but it saves the pain of trying
         # to keep in sync with the textfield as the user types
 
