@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
     f = self.freshbooks_client
 
     f.clients.each do |client|
-      self.people << Person.create(:email => client[:name], :name => client[:name])
+      self.people << Person.create(:email => client[:email], :name => client[:name])
     end
 
     self.save
