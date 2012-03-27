@@ -61,16 +61,6 @@ class App < Sinatra::Base
     ActionMailer::Base.delivery_method = :letter_opener
   end
 
-  CarrierWave.configure do |config|
-    if !App.production?
-      config.root = App.root + "/public"
-    end
-  end
-
-  def self.root
-    File.expand_path '.'
-  end
-
   def render_view(name, args = {})
     path = name.to_sym
     if args.has_key?(:layout)
@@ -177,6 +167,20 @@ class App < Sinatra::Base
     end
 
     if doc.save
+      DocumentMailer.notify_signee(doc).deliver
+
+      if doc.copied.any?
+        DocumentMailer.notify_copied(doc).deliver
+      end
+
+      event = {
+        :timestamp => DateTime.now,
+        :text => "Document was emailed to recipients."
+      }
+
+      doc.events << event
+      doc.save
+
       # TODO: I need to make a consistent module with helpers for generating urls.
       redirect '/documents/' + doc.slug
     else
@@ -227,11 +231,6 @@ class App < Sinatra::Base
       end
     end
     nil
-  end
-
-  get '/test' do
-    puts partial "comments/comment", :comment => Comment.last
-    "aoeu"
   end
 
   post '/comments' do
