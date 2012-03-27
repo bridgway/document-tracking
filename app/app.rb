@@ -24,6 +24,8 @@ require 'models/user'
 require 'models/document_transfer'
 require 'models/comment'
 
+require 'mailers/document_mailer'
+
 class App < Sinatra::Base
   include Environment
 
@@ -41,8 +43,12 @@ class App < Sinatra::Base
     set :public_folder, "#{app_folder_root}/../../public"
     set :views, "#{app_folder_root}/views"
 
+
+    tmp_location = File.expand_path(File.join("..", File.dirname(__FILE__))) + "/tmp/letter_opener"
+
     ActionMailer::Base.add_delivery_method :letter_opener, LetterOpener::DeliveryMethod,
-        :location => "#{app_folder_root}/tmp/letter_opener"
+        :location => tmp_location
+
     ActionMailer::Base.view_paths = "#{app_folder_root}/views"
   end
 
