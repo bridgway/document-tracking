@@ -38,23 +38,23 @@ $ ->
 
         $nameField = $('#name-field')
 
+        @people = $nameField.data('people')
+
         $nameField.autocomplete multiple: false, shouldSearch: this.shouldSearch
 
         $nameField.on
           'value:set': (ev, value) ->
             $nameField.data 'selected-person', value
 
+      getCCNames: -> _.filter $('#cc-field').val().split(','), (element) -> element.replace(/\ /, '').length > 0
 
       setupValidation: ->
-        validPerson = (name) ->
-          people = $('#name-field').data('people')
-          names = _.pluck people, 'name'
-
+        validPerson = (name) =>
+          names = _.pluck @people, 'name'
           _.include names, name
 
-        validCC = (list) ->
-          # strip out the weird one char whitespace strings that pop up.
-          names = _.filter list.split(','), (element) -> element.replace(/\ /, '').length > 0
+        validCC = (list) =>
+          names = this.getCCNames()
           _.every names, validPerson
 
         $.validator.addMethod 'validPerson', validPerson, "Don't know who that is!"
@@ -90,6 +90,11 @@ $ ->
               $('#upload').append error
             else
               error.insertAfter el
+
+          submitHandler: (form) =>
+            # Before we can submit the form, get the ids of the selected people and tack them on.
+
+            form.submit()
 
 
       shouldSearch: (el) ->

@@ -137,27 +137,22 @@ class App < Sinatra::Base
 
 
   post '/documents/new' do
-    doc = Document.new
-    json = JSON.parse params[:document], symbolize_names: true
+    file = DocumentFile.new(:user_id => current_user.id, :source => params[:file])
+    doc = Document.new message: params[:message]
 
-    json[:files].each do |file|
-      doc.files << current_user.files.find(file[:id])
+    doc.file = file
+    doc.user = current_user
+
+    signee = Person.find_by_name params[:to]
+
+    doc.signee = signee
+    doc.recipients << signee
+
+    params[:cc].split(",").map(&:strip).each do |name|
+      doc.recipients << Person.find_by_name(name)
     end
 
-    json[:recipients].each do |recipient|
-      doc.recipients << current_user.people.find(recipient[:id])
-    end
-
-    doc.message = json[:message]
-
-    # TODO:Insecure.  Need to refactor to use session.
-    doc.user_id = json[:user_id]
-
-    if doc.save
-      json doc
-    else
-      json doc.errors
-    end
+    doc.save
   end
 
   post '/upload' do
