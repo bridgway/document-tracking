@@ -52,7 +52,14 @@ $ ->
 
           _.include names, name
 
+        validCC = (list) ->
+          # strip out the weird one char whitespace strings that pop up.
+          names = _.filter list.split(','), (element) -> element.replace(/\ /, '').length > 0
+          # console.log _.every names, validPerson
+          _.every names, validPerson
+
         $.validator.addMethod 'validPerson', validPerson, "Don't know who that is!"
+        $.validator.addMethod 'validCC', validCC, "Don't know who that is!"
 
         this.$el.validate
           # make sure we don't ignore the hidden file input.
@@ -62,6 +69,10 @@ $ ->
               to:
                 required: true
                 validPerson: true
+
+              cc:
+                validCC:
+                  depends: (el) -> $(el).is ':visible'
 
               file:
                 required: true
