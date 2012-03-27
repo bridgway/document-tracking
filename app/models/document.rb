@@ -90,6 +90,11 @@ class Document < ActiveRecord::Base
     self.update_attributes :signee_id => person.id
   end
 
+  # return the cc'ed recipients.
+  def copied
+    self.recipients.select { |r| r.id != self.signee.id }
+  end
+
   def add_creation_event
     self.events << {
       :timestamp => self.created_at,
