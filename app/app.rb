@@ -134,7 +134,7 @@ class App < Sinatra::Base
 
   #
   #  Document Routes
-  #
+
 
   post '/documents/new' do
     doc = Document.new
@@ -149,6 +149,8 @@ class App < Sinatra::Base
     end
 
     doc.message = json[:message]
+
+    # TODO:Insecure.  Need to refactor to use session.
     doc.user_id = json[:user_id]
 
     if doc.save
