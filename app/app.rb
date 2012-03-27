@@ -40,6 +40,10 @@ class App < Sinatra::Base
     app_folder_root = File.dirname(File.expand_path(__FILE__))
     set :public_folder, "#{app_folder_root}/../../public"
     set :views, "#{app_folder_root}/views"
+
+    ActionMailer::Base.add_delivery_method :letter_opener, LetterOpener::DeliveryMethod,
+        :location => "#{app_folder_root}/tmp/letter_opener"
+    ActionMailer::Base.view_paths = "#{app_folder_root}/views"
   end
 
   configure :production do
