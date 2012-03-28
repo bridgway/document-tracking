@@ -34,10 +34,15 @@
 
 
   <div id='side'>
+    <header>
+      <div id='header-inner'>
+        <h3>Status: Unsigned</h3>
+      </div>
+    </header>
     <div id='side-inner'>
       <img id='thumbnail' src="<%= @doc.file.source.thumb.url %>">
 
-      <ul class='bare'>
+      <ul class='bare' id='tools'>
         <li><%= public_discussion_link(current_user, @doc, "View the discussion page", :token => false) %></li>
         <li><a href="<%= @doc.file.source.url %>">Download the file</a></li>
         <li><a href="#">Delete</a></li>

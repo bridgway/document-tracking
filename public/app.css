@@ -281,16 +281,52 @@ button {
 #side {
   float: right;
   width: 250px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #CCC;
+  border: 1px solid #DDD;
 }
 
-/* TODO: I don't like using important here */
+#side header {
+  background-color: red;
+  background-color: #EEE;
+  padding-bottom: 0;
+}
+
+#side header h3 {
+  margin: 0;
+  text-align: center;
+  color: #666;
+  text-shadow: #FFF 0px 1px;
+}
+
+#side #header-inner {
+  padding: 10px;
+}
+
+#side-inner {
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding: 20px;
+}
+
+#side #thumbnail {
+  margin-left: 20px;
+  margin-right: auto;
+  width: 155px;
+  border: 1px solid #DDD;
+}
+
+#side p, #side li {
+  font-size: 14px;
+}
 
 #side a {
   color: #333;
   font-weight: bold;
+}
+
+#side #tools {
+  margin: 0 auto;
+  margin-top: 20px;
 }
 
 #main section {
@@ -313,23 +349,6 @@ button {
 span.comment {
   font-style: italic;
   color: #555;
-}
-
-
-#side-inner {
-  width: 200px;
-  margin: 0 auto;
-  margin-top: 10px;
-}
-
-#side #thumbnail {
-  margin-left: auto;
-  margin-right: auto;
-  border: 1px solid #DDD;
-}
-
-#side p, #side li {
-  font-size: 14px;
 }
 
 #container:before,
