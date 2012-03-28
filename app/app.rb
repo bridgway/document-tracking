@@ -97,6 +97,8 @@ class App < Sinatra::Base
     end
   end
 
+  ID_REGEX = /(\d*)(?:-)(.*)?/
+
   get '/' do
     authenticate!
     @user = current_user
@@ -207,7 +209,7 @@ class App < Sinatra::Base
   end
 
   get '/documents/:id' do
-    if params[:id].match /(\d*)(?:-)(.*)?/
+    if params[:id].match ID_REGEX
       id = $1
       slug = $2
       @doc = current_user.documents.where(:id => id).first
@@ -215,6 +217,22 @@ class App < Sinatra::Base
       render_view "documents/show"
     else
       # 404 it
+    end
+  end
+
+  get '/documents/:account_id/view/:document_slug' do
+    account = User.where(:id => params[:account_id]).first
+    if account
+      params[:document_slug].match ID_REGEX
+      document = account.documents.find $1
+      if document.transfer.view_token == params[:token] || current_user.id == account.id
+        @doc = document
+        render_view "documents/public_show"
+      else
+        "404"
+      end
+    else
+      "404"
     end
   end
 

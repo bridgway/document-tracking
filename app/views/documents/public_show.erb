@@ -1,0 +1,26 @@
+<div id='document'>
+
+  <header>
+    <h1><%= @doc.filename %></h1>
+    <p class='subtle'>Sign this document and we'll get going.</p>
+  </header>
+
+  <div id='the-document'>
+    <embed src="/test.pdf" width="800" height="575">
+  </div>
+
+  <section id='blotter'>
+
+    <h2>Sign It</h2>
+
+  </section>
+
+  <section id='discussion'>
+
+    <form id='add-comment'>
+      <p><strong>Add A Comment</strong></p>
+      <textarea></textarea>
+      <button>Add Comment</button>
+    </form>
+  </section>
+</div>

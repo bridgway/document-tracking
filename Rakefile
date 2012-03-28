@@ -40,7 +40,7 @@ namespace :db do
 
     puts "creating test document + data"
 
-    file = DocumentFile.new source: File.open('public/test.pdf')
+    file = DocumentFile.new source: File.open('public/w9.pdf')
     file.save
 
     doc = Document.new message: "a test"

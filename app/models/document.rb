@@ -5,7 +5,7 @@ class Document < ActiveRecord::Base
 
   belongs_to :user
 
-  has_many :document_transfers
+  has_many :document_transfers, limit: 1
 
   has_many :recipients, :class_name => Person, :through => :document_transfers
 
@@ -101,5 +101,9 @@ class Document < ActiveRecord::Base
       :text => "Document was sent.",
       :type => :creation
     }
+  end
+
+  def transfer
+    self.document_transfers.first
   end
 end
