@@ -10,10 +10,6 @@ module Helpers
   end
 
   def public_discussion_link(user, document, text, opts = {})
-    if !opts[:token]
-      opts[:token] = true
-    end
-
     transfer = document.transfer
     url = File.join(user.id.to_s, "view", document.slug)
     if opts[:token]
