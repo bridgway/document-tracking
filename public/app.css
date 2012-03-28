@@ -329,6 +329,10 @@ button {
   margin-top: 20px;
 }
 
+#side #tools li {
+  margin-bottom: 5px;
+}
+
 #main section {
   margin-bottom: 40px;
 }

@@ -9,6 +9,15 @@ module Helpers
     "<a href='#{href}'>#{text}</a>"
   end
 
+  def public_discussion_url(user, document, opts = {})
+    transfer = document.transfer
+    url = File.join(user.id.to_s, "view", document.slug)
+    if opts[:token]
+      url << "?token=#{transfer.view_token}"
+    end
+    url
+  end
+
   def public_discussion_link(user, document, text, opts = {})
     transfer = document.transfer
     url = File.join(user.id.to_s, "view", document.slug)

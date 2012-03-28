@@ -59,6 +59,8 @@ class App < Sinatra::Base
 
   configure :development do
     ActionMailer::Base.delivery_method = :letter_opener
+
+    $APP_BASE_URL = "http://localhost:9393/"
   end
 
   def render_view(name, args = {})
