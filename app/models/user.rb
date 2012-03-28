@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   has_many :people
   has_many :comments, :as => :source
 
+  has_many :document_transfers, :through => :documents
+
   after_create do
     f = self.freshbooks_client
 
