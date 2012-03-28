@@ -38,7 +38,7 @@
       <img id='thumbnail' src="<%= @doc.file.source.thumb.url %>">
 
       <ul class='bare'>
-        <li><%= public_discussion_link(current_user, @doc, "View the discussion page") %></li>
+        <li><%= public_discussion_link(current_user, @doc, "View the discussion page", :token => false) %></li>
         <li><a href="<%= @doc.file.source.url %>">Download the file</a></li>
         <li><a href="#">Delete</a></li>
       </ul>
