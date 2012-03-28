@@ -173,10 +173,6 @@ class App < Sinatra::Base
     if doc.save
       DocumentMailer.notify_signee(doc).deliver
 
-      if doc.copied.any?
-        DocumentMailer.notify_copied(doc).deliver
-      end
-
       event = {
         :timestamp => DateTime.now,
         :text => "Document was emailed to recipients."
