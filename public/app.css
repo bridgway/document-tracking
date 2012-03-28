@@ -285,8 +285,8 @@ button {
 }
 
 #side header {
-  background-color: red;
-  background-color: #EEE;
+  background-color: #DDD;
+  background-color: #;
   padding-bottom: 0;
 }
 
@@ -430,3 +430,44 @@ label.error {
   font-size: 18px;
   margin-top: 40px;
 }
+
+button.sign {
+  padding: 10px;
+  border: none;
+  background-color: #1351FF;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  font-family: Helvetica;
+  text-transform: uppercase;
+}
+
+button.sign:active {
+  background-color: navy;
+}
+
+#sign-it {
+  height: 200px;
+  background-color: rgb(244, 252, 181);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 10px;
+}
+
+#sign-it header h2 {
+  border: none;
+}
+
+#sign-it header {
+  margin-bottom: 20px;
+}
+
+#sign-it button {
+  float: none;
+}
+
+#sign-it p {
+  line-height: 1.6em;
+  color: #555;
+}
+
