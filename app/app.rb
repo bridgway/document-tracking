@@ -101,6 +101,11 @@ class App < Sinatra::Base
 
   ID_REGEX = /(\d*)(?:-)(.*)?/
 
+
+  #
+  # Root
+  #
+
   get '/' do
     authenticate!
     @user = current_user
@@ -109,6 +114,11 @@ class App < Sinatra::Base
 
     erb :index
   end
+
+
+  #
+  # Sessions
+  #
 
   get '/login' do
     if !logged_in?
@@ -152,7 +162,7 @@ class App < Sinatra::Base
 
   #
   #  Document Routes
-
+  #
 
   post '/documents/new' do
     file = DocumentFile.new(:user_id => current_user.id, :source => params[:file])
@@ -186,23 +196,6 @@ class App < Sinatra::Base
     else
       flash[:error] = "Something went wrong.  We are working on it."
       redirect '/'
-    end
-  end
-
-  post '/upload' do
-    temp_file = params[:file]
-    file = DocumentFile.new(:user_id => current_user.id)
-    file.source = temp_file
-
-    if file.save
-      attrs = {
-        id: file.id,
-        url: file.source.thumb.url
-      }
-
-      json attrs
-    else
-      json "aoeu"
     end
   end
 
