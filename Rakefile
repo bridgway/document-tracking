@@ -1,5 +1,8 @@
 require 'active_record'
-require './app/app'
+require 'rake/testtask'
+require 'bundler'
+
+Bundler.require
 
 desc "Start development server"
 task :start do
@@ -14,6 +17,8 @@ end
 namespace :db do
   desc "Migrate the database up to the latest version."
   task :migrate do
+    require './app/app'
+
     ActiveRecord::Base.establish_connection(
       :adapter => "sqlite3",
       :database => "database.db"
@@ -27,7 +32,7 @@ namespace :db do
 
   desc "Seed the database with test data"
   task :seed do
-    require './db/database'
+    require './app/app'
     puts "Creating test user..."
 
     user = User.create(
@@ -64,8 +69,12 @@ namespace :db do
   desc "Delete the database, remigrate, and seed"
   task :reset => ["delete", "migrate", "seed"]
 
+end
 
-
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList['test/test*.rb']
+  t.verbose = true
 end
 
 task :default => :start

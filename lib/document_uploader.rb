@@ -1,20 +1,34 @@
 require 'carrierwave'
+require 'carrierwave-docsplit'
 
 class DocumentUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
+  extend CarrierWave::DocsplitIntegration
+
+
+  # THIS HURTS SO MUCH TO PUT IT HERE.
+  # But, it gets a circular dependency going if you put it in it's rightful place in DocumentFile
+
+  IMAGE_SIZES = {}
+  IMAGE_SIZES['large']      = '1000x'
+  IMAGE_SIZES['normal']     = '700x'
+  IMAGE_SIZES['small']      = '180x'
+  IMAGE_SIZES['thumbnail']  = '60x75!'
 
   storage :file
 
-  version :thumb do
-    process :convert_and_scale => '200x200'
+  extract :images => {:to => :thumbs, :sizes => IMAGE_SIZES }, :text => { :to => :text }
+
+  version :large do
+    process :convert_and_scale => '300x400'
 
     def full_filename(for_file)
      super(for_file).chomp(File.extname(super(for_file))) + '.png'
     end
   end
 
-  version :large do
-    process :convert_and_scale => '300x400'
+  version :thumb, :from_version => :large do
+    process :convert_and_scale => '200x200'
 
     def full_filename(for_file)
      super(for_file).chomp(File.extname(super(for_file))) + '.png'

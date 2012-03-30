@@ -3,6 +3,7 @@ source :rubygems
 gem 'sinatra'
 gem 'sqlite3'
 gem 'activerecord'
+gem 'activesupport', "~> 3.2.2", :require => "active_support"
 gem 'barista'
 gem 'builder'
 gem 'crack'
@@ -13,6 +14,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'postmark-rails'
 gem 'actionmailer'
+gem 'carrierwave-docsplit', :git => "git://github.com/woodbridge/carrierwave-docsplit.git"
 
 group :development do
   gem 'shotgun'
