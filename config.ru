@@ -1,11 +1,4 @@
-require 'rubygems'
-require 'bundler'
+# This file is used by Rack-based servers to start the application.
 
-Bundler.require
-
-require './app/app'
-require 'resque/server'
-
-run Rack::URLMap.new \
-  "/"       => App.new,
-  "/resque" => Resque::Server.new
+require ::File.expand_path('../config/environment',  __FILE__)
+run Documents::Application
