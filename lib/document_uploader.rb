@@ -11,7 +11,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
   end
 
   def store_dir
-    File.expand_path(File.join(App.root, 'public/uploads'))
+    # File.expand_path(File.join(App.root, 'public/uploads/#{user}'))
   end
 
   def self.store_dir

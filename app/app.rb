@@ -42,6 +42,7 @@ class App < Sinatra::Base
 
     register Barista::Integration::Sinatra
     Barista.root = "coffee/"
+    Barista.output_root = "public/js"
 
     register Sinatra::Flash
 
