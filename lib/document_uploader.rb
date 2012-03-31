@@ -6,12 +6,16 @@ class DocumentUploader < CarrierWave::Uploader::Base
   extend CarrierWave::DocsplitIntegration
   include ::CarrierWave::Backgrounder::DelayStorage
 
+  def root
+    File.join App.root, 'public'
+  end
+
   def store_dir
-    File.expand_path(File.join($ROOT, 'public/uploads'))
+    File.expand_path(File.join(App.root, 'public/uploads'))
   end
 
   def self.store_dir
-    File.expand_path(File.join($ROOT, 'public/uploads'))
+    File.expand_path(File.join(App.root, 'public/uploads'))
   end
 
   # THIS HURTS SO MUCH TO PUT IT HERE.

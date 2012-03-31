@@ -8,11 +8,14 @@ Bundler.require
 
 # Load up required the required parts of the app for our workers.
 task "resque:setup" do
+
   $ROOT = File.expand_path(File.dirname(__FILE__))
 
   $LOAD_PATH.unshift $ROOT
   $LOAD_PATH.unshift File.join($ROOT, 'lib')
   $LOAD_PATH.unshift File.join($ROOT, 'app')
+
+  require 'app/app'
 
   CarrierWave.configure do |config|
     here = File.join(File.dirname(__FILE__))
