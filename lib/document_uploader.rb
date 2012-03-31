@@ -7,7 +7,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
   include ::CarrierWave::Backgrounder::DelayStorage
 
   def root
-    File.join App.root, 'public'
+    File.join Rails.root, 'public'
   end
 
   def store_dir
@@ -15,7 +15,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
   end
 
   def self.store_dir
-    File.expand_path(File.join(App.root, 'public/uploads'))
+    File.expand_path(File.join(Rails.root, 'public/uploads'))
   end
 
   # THIS HURTS SO MUCH TO PUT IT HERE.

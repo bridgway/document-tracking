@@ -12,4 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require handlebars
+//= require underscore
+//= require backbone
+//= require jquery.ui.widget
+//= require jquery.fileupload
+//= require jquery.validate
 //= require_tree .
