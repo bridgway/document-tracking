@@ -1,8 +1,27 @@
 require 'active_record'
 require 'rake/testtask'
+require 'resque/tasks'
 require 'bundler'
 
 Bundler.require
+
+
+# Load up required the required parts of the app for our workers.
+task "resque:setup" do
+  $ROOT = File.expand_path(File.dirname(__FILE__))
+
+  $LOAD_PATH.unshift $ROOT
+  $LOAD_PATH.unshift File.join($ROOT, 'lib')
+  $LOAD_PATH.unshift File.join($ROOT, 'app')
+
+  CarrierWave.configure do |config|
+    here = File.join(File.dirname(__FILE__))
+    config.root = "#{here}/public"
+  end
+
+  require_relative 'db/database'
+  require 'app/models/document_file'
+end
 
 desc "Start development server"
 task :start do
@@ -58,7 +77,7 @@ namespace :db do
 
   desc "Delete the database"
   task :delete do
-    if App.production?
+    if ENV['RACK_ENV'] == 'productino'
       puts "Not going to do that in production."
       exit
     end

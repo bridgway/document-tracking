@@ -4,7 +4,15 @@ require 'carrierwave-docsplit'
 class DocumentUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   extend CarrierWave::DocsplitIntegration
+  include ::CarrierWave::Backgrounder::DelayStorage
 
+  def store_dir
+    File.expand_path(File.join($ROOT, 'public/uploads'))
+  end
+
+  def self.store_dir
+    File.expand_path(File.join($ROOT, 'public/uploads'))
+  end
 
   # THIS HURTS SO MUCH TO PUT IT HERE.
   # But, it gets a circular dependency going if you put it in it's rightful place in DocumentFile

@@ -5,8 +5,12 @@ require 'json'
 require 'barista'
 require 'sinatra/flash'
 
+$ROOT = File.expand_path(File.dirname(__FILE__))
+
 $: << File.expand_path("./lib")
 $: << File.expand_path(File.dirname(__FILE__))
+
+require 'carrierwave_backgrounder'
 
 require 'helpers'
 
@@ -14,6 +18,8 @@ require 'peoplekit/peoplekit'
 
 require 'action_mailer'
 require 'letter_opener'
+
+require 'resque'
 
 require 'environment'
 require './db/database'
@@ -40,9 +46,12 @@ class App < Sinatra::Base
     set :session_secret, "secret"
 
     app_folder_root = File.dirname(File.expand_path(__FILE__))
-    set :public_folder, "#{app_folder_root}/../../public"
+    set :public_folder, "#{app_folder_root}/../public"
     set :views, "#{app_folder_root}/views"
 
+    CarrierWave.configure do |config|
+      config.root = File.expand_path("#{app_folder_root}/../public")
+    end
 
     tmp_location = File.expand_path(File.join("..", File.dirname(__FILE__))) + "/tmp/letter_opener"
 

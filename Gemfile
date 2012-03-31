@@ -11,10 +11,12 @@ gem "bcrypt-ruby", "~> 3.0.1"
 gem 'rest-client'
 gem 'sinatra-flash'
 gem 'carrierwave'
+gem 'carrierwave_backgrounder'
+gem 'carrierwave-docsplit', :git => "git://github.com/woodbridge/carrierwave-docsplit.git"
 gem 'mini_magick'
 gem 'postmark-rails'
 gem 'actionmailer'
-gem 'carrierwave-docsplit', :git => "git://github.com/woodbridge/carrierwave-docsplit.git"
+gem 'resque'
 
 group :development do
   gem 'shotgun'
