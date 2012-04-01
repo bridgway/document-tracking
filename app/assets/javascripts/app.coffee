@@ -181,29 +181,9 @@ $ ->
     window.uploadForm = new DocumentUploadForm(currentDocument)
     window.documentView = new DocumentView(currentDocument)
 
-  if $('#show-document').length > 0
-    $('#add-comment').submit (ev) ->
-      ev.preventDefault()
+  # if $('#show-document').length > 0
+    # $('#new_comment').on 'ajax:success', (res) ->
+      # console.log res.responseText
+      # console.log res
 
-      # Loop over our fiels and zip them into a JSON object.
-
-      obj = {}
-      re = new RegExp(/(.+)\[(.+)\]/)
-      for field in $('#show-document input, #show-document textarea')
-        matches = re.exec $(field).attr('name')
-        parent = matches[1]
-        attr = matches[2]
-
-        obj[parent] = {} if not obj[parent]?
-
-        obj[parent][attr] = $(field).val()
-
-      $('textarea').val('')
-
-      $.post $('#add-comment').attr('action'), obj, (html) ->
-        $emptyMessage = $('pempty')
-        $emptyMessage.remove() if $emptyMessage.length > 0
-
-        $comment = $(html)
-        $('#comments').append($comment)
-        $comment.hide().fadeIn()
+      # $.post $('#add-comment').attr('action'), obj, (html) ->

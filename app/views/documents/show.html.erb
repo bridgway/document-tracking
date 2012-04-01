@@ -84,14 +84,14 @@
 
     <% end %>
   </ul>
-
-  <form id='add-comment' action='/comments' method='post'>
+  <%= form_for [current_user, @document, Comment.new], :id => 'add-comment',
+                                                       :remote => false  do |f| %>
     <p><strong>Add A Comment</strong></p>
-    <textarea name='comment[body]'></textarea>
-    <input type='hidden' value='<%= current_user.id %>' name='comment[user_id]'>
-    <input type='hidden' value='<%= @document.id %>' name='comment[document_id]'>
+
+    <%= f.text_area :body %>
+
     <button>Add Comment</button>
-  </form>
+  <% end %>
 
 </section>
 

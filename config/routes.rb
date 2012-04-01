@@ -4,7 +4,10 @@ Documents::Application.routes.draw do
   root :to => 'users#show'
 
   resources :users, :path => '' do
-    resources :documents
+    resources :documents do
+      resources :comments, :shallow => true, :only => [:create, :destroy]
+    end
+
     resources :document_transfers
 
     get '/:id/view' => 'documents#show', :as => :public_document_page

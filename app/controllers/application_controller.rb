@@ -7,6 +7,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Don't send sensitive information to the client.
+  def client_side_current_user
+    if session[:user_id]
+      User.select([:first_name, :last_name, :email]).find session[:user_id]
+    end
+  end
+
   def logged_in?
     session[:user_id] != nil
   end
