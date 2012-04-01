@@ -18,4 +18,5 @@
 //= require jquery.ui.widget
 //= require jquery.fileupload
 //= require jquery.validate
+//= require autocomplete
 //= require_tree .

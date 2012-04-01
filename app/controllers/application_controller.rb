@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   def current_user
     # TODO: Cache this in a an instance variable
     User.where(id: session[:user_id]).first
-    User.new
   end
 
   def logged_in?
