@@ -7,7 +7,10 @@ class Document < ActiveRecord::Base
 
   has_many :document_transfers, limit: 1
 
-  has_many :recipients, :class_name => Person, :through => :document_transfers
+  has_many :recipients, :class_name => Person, :through => :document_transfers,
+                                               :after_add => :generate_token_for_recipient
+
+  has_many :tokens, :through => :recipients
 
   # TODO: Might be able to replace my custom file accessors by adding :limit => 1
   # http://stackoverflow.com/questions/1480631/has-one-and-has-many-in-same-model-how-does-rails-track-them
@@ -30,6 +33,7 @@ class Document < ActiveRecord::Base
   scope :signed, where(:status => WRITE_STATUSES[:signed])
 
   before_create :add_creation_event
+  after_save :generate_tokens_for_recipients
 
   # def to_param
   #   [self.id.to_s, self.filename.downcase.gsub(' ', '-')].join('-')
@@ -109,5 +113,26 @@ class Document < ActiveRecord::Base
 
   def transfer
     self.document_transfers.first
+  end
+
+  # Make sure to use this method when adding recipients.
+  # Creates a token and assigns it to the user.
+
+  def token_for_recipient(recipient)
+    Token.where(:document_id => self.id, :person_id => recipient.id).first
+  end
+
+  def generate_token_for_recipient(recipient)
+    return if !self.id
+
+    Token.new(:document_id => self.id, :person_id => recipient.id)
+  end
+
+  def generate_tokens_for_recipients
+    self.recipients.each do |recipient|
+      if !self.token_for_recipient(recipient)
+        recipient.tokens << Token.new(:document_id => self.id)
+      end
+    end
   end
 end

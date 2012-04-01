@@ -24,5 +24,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def not_found
+    render :file => "public/404.html", :status => 404, :layout => false
+  end
+
   helper_method :current_user
 end

@@ -1,0 +1,10 @@
+Hello <%= @document.signee.name.split.first %>,
+
+<%= format_paragraph @document.message %>
+
+Here is a link to view the document:
+
+<%= user_public_document_page_url(@document.user, @document,
+    :token => @document.token_for_recipient(@recipient).code) %>
+
+<%= @document.user.name %>

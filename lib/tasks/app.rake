@@ -22,9 +22,12 @@ namespace :app do
     file.save
 
     doc = Document.new message: "a test"
+
     doc.recipients << user.people.first
+
+    doc.signee = doc.recipients.first
+
     doc.files << file
-    doc.save
 
     user.documents << doc
   end

@@ -3,6 +3,8 @@ require 'resque/server'
 Documents::Application.routes.draw do
   root :to => 'users#show'
 
+  mount Resque::Server.new, :at => "/resque"
+
   resources :users, :path => '' do
     resources :documents do
       resources :comments, :shallow => true, :only => [:create, :destroy]
@@ -16,6 +18,4 @@ Documents::Application.routes.draw do
   get '/login' => 'sessions#new', :as => :login
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy', :as => :logout
-
-  mount Resque::Server.new, :at => "/resque"
 end

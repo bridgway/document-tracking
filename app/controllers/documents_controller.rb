@@ -9,8 +9,23 @@ class DocumentsController < ApplicationController
 
   def show
     # Public Show Page
-    if request.url =~ /view$/
+    if request.url =~ /view[\?.*]?/
       @document = current_user.documents.find params[:id]
+
+      if params[:token]
+        token = Token.find_by_code(params[:token])
+
+        if token
+          @view = token.person
+        else
+          not_found
+          return
+        end
+      elsif !current_user
+        not_found
+        return
+      end
+
       render :public
     # The Admin Page
     else
@@ -36,7 +51,7 @@ class DocumentsController < ApplicationController
     end
 
     if doc.save
-      # DocumentMailer.notify_signee(doc).deliver
+      DocumentMailer.notify_signee(doc).deliver
 
       event = {
         :timestamp => DateTime.now,
@@ -47,7 +62,7 @@ class DocumentsController < ApplicationController
       doc.save
 
       # TODO: I need to make a consistent module with helpers for generating urls.
-      redirect_to document_url(doc)
+      redirect_to user_document_url(current_user, doc)
     else
       flash[:error] = "Something went wrong.  We are working on it."
       redirect_to '/'

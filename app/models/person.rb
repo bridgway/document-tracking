@@ -3,4 +3,5 @@ class Person < ActiveRecord::Base
 
   has_many :documents, :through => :document_transfers
   has_many :comments, :as => :source
+  has_many :tokens
 end

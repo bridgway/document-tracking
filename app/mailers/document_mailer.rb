@@ -12,6 +12,10 @@ class DocumentMailer < ActionMailer::Base
 
   def notify_signee(document)
     @document = document
-    mail to: document.signee.email, :subject => "A document for you.", :cc => document.copied
+
+    @document.recipients.each do |recipient|
+      @recipient = recipient
+      mail to: recipient.email, :subject => "A document for you."
+    end
   end
 end
