@@ -1,0 +1,2 @@
+class DocumentTransfersController < ApplicationController
+end
