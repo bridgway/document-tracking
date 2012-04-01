@@ -39,7 +39,7 @@
 
     <ul class='document-list bare'>
       <% @unsigned.each do |doc| %>
-        <li><h3><%= link_to doc.filename, doc %>
+        <li><h3><%= link_to doc.filename, [current_user, doc] %>
           <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
       <% end %>
     </ul>
@@ -51,7 +51,7 @@
       <h2>Upload A New Document</h2>
     </header>
 
-    <%= form_for Document.new, :method => "post", :html => { :multipart => true } do %>
+    <%= form_for [@current_user, Document.new], :method => "post", :html => { :multipart => true } do %>
 
       <section id='upload'>
         <div>

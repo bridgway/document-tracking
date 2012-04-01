@@ -31,6 +31,10 @@ class Document < ActiveRecord::Base
 
   before_create :add_creation_event
 
+  # def to_param
+  #   [self.id.to_s, self.filename.downcase.gsub(' ', '-')].join('-')
+  # end
+
   class UnkownDocumentStatus < Exception; end
 
   def status

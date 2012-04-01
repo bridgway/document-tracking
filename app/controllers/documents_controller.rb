@@ -8,7 +8,15 @@ class DocumentsController < ApplicationController
   end
 
   def show
-    @document = current_user.documents.find params[:id]
+    # Public Show Page
+    if request.url =~ /view$/
+      @document = current_user.documents.find params[:id]
+      render :public
+    # The Admin Page
+    else
+      @document = current_user.documents.find params[:id]
+      render :show
+    end
   end
 
   def create

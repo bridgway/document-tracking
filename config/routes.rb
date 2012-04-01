@@ -1,9 +1,14 @@
 require 'resque/server'
 
 Documents::Application.routes.draw do
-  root :to => 'documents#index'
+  root :to => 'users#show'
 
-  resources :documents
+  resources :users, :path => '' do
+    resources :documents
+    resources :document_transfers
+
+    get '/:id/view' => 'documents#show', :as => :public_document_page
+  end
 
   get '/login' => 'sessions#new', :as => :login
   post '/login' => 'sessions#create'
