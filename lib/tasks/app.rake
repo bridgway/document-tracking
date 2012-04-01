@@ -1,3 +1,7 @@
+require 'resque/tasks'
+
+task "resque:setup" => :environment
+
 namespace :app do
   desc "Reset the app!"
   task :reset => [:environment, "db:schema:load"] do

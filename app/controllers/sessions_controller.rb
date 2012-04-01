@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
   def new
+    if current_user
+      redirect_to root_url
+    end
   end
 
   def create
@@ -11,5 +14,10 @@ class SessionsController < ApplicationController
       flash.now[:notice] = "Failed"
       render :new
     end
+  end
+
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_url
   end
 end

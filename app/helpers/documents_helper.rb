@@ -10,4 +10,13 @@ module DocumentsHelper
     end
     html
   end
+
+  def public_discussion_link(user, document, text, opts = {})
+    transfer = document.transfer
+    url = File.join(user.id.to_s, "view", document.slug)
+    if opts[:token]
+      url << "?token=#{transfer.view_token}"
+    end
+    "<a href='#{url}'>#{text}</a>".html_safe
+  end
 end

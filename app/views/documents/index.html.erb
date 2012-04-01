@@ -51,8 +51,7 @@
       <h2>Upload A New Document</h2>
     </header>
 
-
-    <form id='upload-form' action='/documents/new' method='POST' enctype="multipart/form-data">
+    <%= form_for Document.new, :method => "post", :html => { :multipart => true } do %>
 
       <section id='upload'>
         <div>
@@ -90,7 +89,7 @@
             <button>Send It</button>
           </div>
       </section>
-    </form>
+    <% end %>
   </section>
 </section>
 

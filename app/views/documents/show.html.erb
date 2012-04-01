@@ -1,0 +1,98 @@
+<section id='show-document'>
+
+  <header>
+    <h1><%= @document.filename %></h1>
+
+    <% if @document.file.source_processing %>
+
+      <p>Once second, we're still processing your document.</p>
+
+    <% end %>
+    <div class='clear'></div>
+  </header>
+
+<div id='top'>
+  <div id='main'>
+
+    <section id='recipients'>
+      <h2>Sent To:</h2>
+      <ul id='recipients'>
+        <li><%= document_people_list @document.recipients %></li>
+      </ul>
+    </section>
+
+    <section id='events'>
+      <h2>Activity:</h2>
+      <ul class='bare'>
+
+        <% @document.events.each do |event| %>
+          <% if event["type"] == "creation" %>
+            <li><%= event["text"] %></li>
+          <% else %>
+            <li><strong><%= event["source"] %></strong><%= event["text"] %></li>
+          <% end %>
+        <% end %>
+      </ul>
+
+    </section>
+
+  </div>
+
+
+  <div id='side'>
+    <header>
+      <div id='header-inner'>
+        <h3>Status: Unsigned</h3>
+      </div>
+    </header>
+    <div id='side-inner'>
+      <img id='thumbnail' src="<%= @document.file.source.thumb.url %>">
+
+      <ul class='bare' id='tools'>
+        <li><%= public_discussion_link(current_user, @document, "View the discussion page", :token => false) %></li>
+        <li><a href="<%= @document.file.source.url %>">Download the file</a></li>
+        <li><a href="#">Delete</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<section id='comments-section'>
+  <h2>Comments:</h2>
+  <ul id='comments'>
+    <% if @document.comments.any? %>
+      <% @document.comments.each do |comment| %>
+        <li>
+          <div class='avatar'>
+            <img src="<%= comment.gravatar %>">
+          </div>
+
+          <div class='content'>
+            <header style='border: none; margin-bottom: 10px;'>
+              <strong><%= comment.source.name %></strong>
+            </header>
+
+            <%= comment.body %>
+          </div>
+
+        <div class='clear'></div>
+        </li>
+      <% end %>
+    <% else %>
+
+    <p class='empty'>No comments yet.</p>
+
+    <% end %>
+  </ul>
+
+  <form id='add-comment' action='/comments' method='post'>
+    <p><strong>Add A Comment</strong></p>
+    <textarea name='comment[body]'></textarea>
+    <input type='hidden' value='<%= current_user.id %>' name='comment[user_id]'>
+    <input type='hidden' value='<%= @document.id %>' name='comment[document_id]'>
+    <button>Add Comment</button>
+  </form>
+
+</section>
+
+</section>

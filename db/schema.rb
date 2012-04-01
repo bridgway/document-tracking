@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 19) do
+ActiveRecord::Schema.define(:version => 20) do
 
   create_table "comments", :force => true do |t|
     t.integer  "source_id"
@@ -24,11 +24,11 @@ ActiveRecord::Schema.define(:version => 19) do
 
   create_table "document_files", :force => true do |t|
     t.string   "source"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "user_id"
     t.text     "text"
-    t.boolean  "is_processing"
+    t.boolean  "source_processing"
   end
 
   create_table "document_transfers", :force => true do |t|
