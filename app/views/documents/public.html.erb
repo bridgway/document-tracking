@@ -25,19 +25,49 @@
         <h2>Sign The Document</h2>
       </header>
 
-      <p>Normally, both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you.</p>
+      <p>Sign it.</p>
 
       <button class='sign'>Sign It</button>
     </form>
   </section>
 
-  <section id='discussion'>
-
-    <form id='add-comment'>
+<section id='comments-section'>
+  <h2>Comments:</h2>
+  <ul id='comments'>
+    <%= form_for [current_user, @document, Comment.new], :id => 'add-comment',
+                                                         :remote => false  do |f| %>
       <p><strong>Add A Comment</strong></p>
-      <p>Have any questions?</p>
-      <textarea></textarea>
+
+      <%= f.text_area :body %>
+
       <button>Add Comment</button>
-    </form>
-  </section>
+    <% end %>
+
+    <% if @document.comments.any? %>
+      <% @document.comments.each do |comment| %>
+        <li>
+          <div class='avatar'>
+            <img src="<%= comment.gravatar %>">
+          </div>
+
+          <div class='content'>
+            <header style='border: none; margin-bottom: 10px;'>
+              <strong><%= comment.source.name %></strong>
+            </header>
+
+            <%= comment.body %>
+          </div>
+
+        <div class='clear'></div>
+        </li>
+      <% end %>
+    <% else %>
+
+    <p class='empty'>No comments yet.</p>
+
+    <% end %>
+  </ul>
+
+
+</section>
 </div>

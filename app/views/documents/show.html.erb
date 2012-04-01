@@ -85,7 +85,7 @@
     <% end %>
   </ul>
   <%= form_for [current_user, @document, Comment.new], :id => 'add-comment',
-                                                       :remote => false  do |f| %>
+                                                       :remote => false do |f| %>
     <p><strong>Add A Comment</strong></p>
 
     <%= f.text_area :body %>
