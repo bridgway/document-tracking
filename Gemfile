@@ -21,8 +21,13 @@ gem 'carrierwave-docsplit', :git => "git://github.com/woodbridge/carrierwave-doc
 gem 'resque'
 gem 'mini_magick'
 gem 'rest-client'
+gem 'capistrano'
 
 group :development do
   gem 'shotgun'
   gem 'letter_opener'
+end
+
+group :production do
+  gem 'unicorn'
 end
