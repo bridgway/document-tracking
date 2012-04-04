@@ -16,7 +16,7 @@ class DocumentsController < ApplicationController
         token = Token.find_by_code(params[:token])
 
         if token
-          @view = token.person
+          @viewer = token.person
         else
           not_found
           return

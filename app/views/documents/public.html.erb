@@ -1,5 +1,4 @@
 <div id='document' class='public'>
-
   <header>
     <h1><%= @document.filename %></h1>
     <p class='subtle'>Sign this document and we'll get going.</p>
@@ -14,22 +13,19 @@
     <embed src="/test.pdf" width="800" height="575">
   </div>
 
-<!--   <section id='blotter'>
-    <h2>Sign It</h2>
-  </section>
- -->
+  <% if @viewer != nil && @viewer.is_signee?(@document) %>
+    <section id='sign-it'>
+      <form method='post'>
+        <header>
+          <h2>Sign The Document</h2>
+        </header>
 
-  <section id='sign-it'>
-    <form method='post'>
-      <header>
-        <h2>Sign The Document</h2>
-      </header>
+        <p>Sign it.</p>
 
-      <p>Sign it.</p>
-
-      <button class='sign'>Sign It</button>
-    </form>
-  </section>
+        <button class='sign'>Sign It</button>
+      </form>
+    </section>
+  <% end %>
 
 <section id='comments-section'>
   <h2>Comments:</h2>
