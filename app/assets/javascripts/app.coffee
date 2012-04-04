@@ -180,10 +180,3 @@ $ ->
     window.currentDocument = new Document
     window.uploadForm = new DocumentUploadForm(currentDocument)
     window.documentView = new DocumentView(currentDocument)
-
-  # if $('#show-document').length > 0
-    # $('#new_comment').on 'ajax:success', (res) ->
-      # console.log res.responseText
-      # console.log res
-
-      # $.post $('#add-comment').attr('action'), obj, (html) ->

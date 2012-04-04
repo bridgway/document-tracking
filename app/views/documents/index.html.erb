@@ -51,7 +51,7 @@
       <h2>Upload A New Document</h2>
     </header>
 
-    <%= form_for [@current_user, Document.new], :method => "post", :html => { :multipart => true } do %>
+    <%= form_for [@current_user, Document.new], :method => "post", :html => { :multipart => true, :id => 'upload-form' } do %>
 
       <section id='upload'>
         <div>
