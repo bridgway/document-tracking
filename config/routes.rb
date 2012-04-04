@@ -5,6 +5,10 @@ Documents::Application.routes.draw do
 
   mount Resque::Server.new, :at => "/resque"
 
+  get '/login' => 'sessions#new', :as => :login
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy', :as => :logout
+
   resources :users, :path => '' do
     resources :documents do
       resources :comments, :shallow => true, :only => [:create, :destroy]
@@ -14,8 +18,4 @@ Documents::Application.routes.draw do
 
     get '/:id/view' => 'documents#show', :as => :public_document_page
   end
-
-  get '/login' => 'sessions#new', :as => :login
-  post '/login' => 'sessions#create'
-  get '/logout' => 'sessions#destroy', :as => :logout
 end
