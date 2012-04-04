@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  before_filter :authenticate!
+  before_filter :authenticate!, :only => [:index, :create]
 
   def index
     @user = current_user
@@ -7,16 +7,18 @@ class DocumentsController < ApplicationController
     @signed = @user.signed_documents
   end
 
+
+  # make this less shitty and more clear.
   def show
     # Public Show Page
     if request.url =~ /view[\?.*]?/
       @document = current_user.documents.find params[:id]
 
       if params[:token]
-        token = Token.find_by_code(params[:token])
+        @token = Token.find_by_code(params[:token])
 
-        if token
-          @viewer = token.person
+        if @token
+          @viewer = @token.person
         else
           not_found
           return
@@ -66,6 +68,15 @@ class DocumentsController < ApplicationController
     else
       flash[:error] = "Something went wrong.  We are working on it."
       redirect_to '/'
+    end
+  end
+
+  def update    
+    # should find an efficient way to scope this to a more secure quer.
+    @document = Document.find(params[:id])
+
+    if @document.update_attributes(params[:document])
+      redirect_to :back
     end
   end
 end

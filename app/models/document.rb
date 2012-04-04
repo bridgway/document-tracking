@@ -47,8 +47,12 @@ class Document < ActiveRecord::Base
     READ_STATUSES[raw]
   end
 
-  def status=(sym)
-    status = WRITE_STATUSES[sym]
+  def status=(sym_or_num)
+    if sym_or_num.is_a? Symbol
+      status = WRITE_STATUSES[sym_or_num]
+    else
+      status = READ_STATUSES[sym_or_num.to_i]
+    end
 
     if !status
       raise UnkownDocumentStatus

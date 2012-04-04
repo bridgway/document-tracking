@@ -15,15 +15,22 @@
 
   <% if @viewer != nil && @viewer.is_signee?(@document) %>
     <section id='sign-it'>
-      <form method='post'>
+
+      <%= form_for [@document.user, @document], :method => :put do |form| %>
         <header>
           <h2>Sign The Document</h2>
         </header>
 
+        <%= hidden_field_tag 'token', @token.code %>
+
+        <input type='hidden' name='document[status]' value='<%= Document::WRITE_STATUSES[:signed].to_s %>'/>
+
         <p>Sign it.</p>
 
-        <button class='sign'>Sign It</button>
-      </form>
+        <%= button_tag "Sign the document", :confirm => "Are you sure?" , :class => "sign" %>
+
+      <% end %>
+
     </section>
   <% end %>
 
