@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       format.json { render :json => @comment.to_json}
-      format.html { redirect_to user_document_url(current_user, params[:document_id]) }
+      format.html { redirect_to :back }
     end
   end
 
