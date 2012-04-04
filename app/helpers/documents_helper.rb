@@ -19,4 +19,16 @@ module DocumentsHelper
     end
     "<a href='#{url}'>#{text}</a>".html_safe
   end
+
+  def document_status_header(document_status)
+    if document_status == :signed
+      status = "Signed"
+    else
+      status = "Unsigned"
+    end
+
+    content_tag :h3, :class => status do
+      "Status: #{status.capitalize}"
+    end
+  end
 end

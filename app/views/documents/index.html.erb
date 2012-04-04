@@ -20,7 +20,7 @@
     <ul class='document-list bare'>
       <% if @signed.any? %>
         <% @signed.each do |doc| %>
-        <li><h3><%= File.basename(doc.file.source.url) %>
+        <li><h3><%= link_to doc.filename, [current_user, doc] %>
           <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
         <% end %>
       <% else %>
