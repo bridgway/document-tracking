@@ -35,9 +35,10 @@ class Document < ActiveRecord::Base
   before_create :add_creation_event
   after_save :generate_tokens_for_recipients
 
-  # def to_param
-  #   [self.id.to_s, self.filename.downcase.gsub(' ', '-')].join('-')
-  # end
+  def to_param
+    extensionless = self.file.source.file.basename.gsub(' ', '-')
+    [self.id.to_s, extensionless].join('-')
+  end
 
   class UnkownDocumentStatus < Exception; end
 
