@@ -18,4 +18,12 @@ class DocumentMailer < ActionMailer::Base
       mail to: recipient.email, :subject => "A document for you."
     end
   end
+
+  def notify_about_signing(document)
+    @document = document
+    @document.recipients.each do |recipient|
+      @recipient = recipient
+      mail to: @recipient.email, subject: "The document was signed"
+    end
+  end
 end
