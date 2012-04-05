@@ -22,13 +22,20 @@ namespace :app do
     file.save
 
     doc = Document.new message: "a test"
-
     doc.recipients << user.people.first
-
     doc.signee = doc.recipients.first
-
     doc.files << file
-
     user.documents << doc
+
+    [
+      { name: "Jason Fried", email: "jason@example.com" },
+      { name: "Robert Di Niro", email: "robert@example.com" } ,
+      { name: "Yukihiro Matsumoto", email: "matz@ruby-lang.org" }
+    ].each do |person|
+      Person.where(person).first_or_create do |creating|
+        creating.user = user
+      end
+    end
+
   end
 end
