@@ -11,5 +11,7 @@ brew install poppler
 echo "Installing tesseract"
 brew install tesseract
 
-echo "Installing pdftk"
-brew install pdftk
+echo "Installing ghost script"
+brew install ghostscript
+
+echo "Now you're going to have to go manually install pdftk: http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/"
