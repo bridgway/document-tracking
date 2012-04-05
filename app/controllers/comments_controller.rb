@@ -21,11 +21,12 @@ class CommentsController < ApplicationController
   private
 
   def find_source
-    params.each do |name, value|
-      if name =~ /(.+)_id$/
-        return $1.classify.constantize.find(value)
-      end
+    if params[:person_id]
+      # a viewer sent this comment, not a user.
+      Person.find(params[:person_id])
+    else
+      # otherwise just use the signed in account owning user.
+      User.find(params[:user_id])
     end
-    nil
   end
 end

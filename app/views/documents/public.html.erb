@@ -37,11 +37,15 @@
 <section id='comments-section'>
   <h2>Comments:</h2>
   <ul id='comments'>
-    <%= form_for [current_user, @document, Comment.new], :id => 'add-comment',
+    <%= form_for [@document.user, @document, Comment.new], :id => 'add-comment',
                                                          :remote => false  do |f| %>
       <p><strong>Add A Comment</strong></p>
 
       <%= f.text_area :body %>
+
+      <% if @viewer %>
+        <%= hidden_field_tag "person_id", @viewer.id %>
+      <% end %>
 
       <button>Add Comment</button>
     <% end %>
