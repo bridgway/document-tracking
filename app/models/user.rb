@@ -77,13 +77,12 @@ class User < ActiveRecord::Base
     $r.lpush self.document_activity_key, encoded
   end
 
-  def document_activity
-    $r.multi do
-      # get the entire list
-      $r.lrange self.document_activity_key, 0, -1
+  def clear_document_activity
+    $r.del self.document_activity_key
+  end
 
-      # then clear it
-      $r.del self.document_activity_key
-    end.first.map { |mem| JSON.parse mem }
+  def document_activity
+    raw = $r.lrange self.document_activity_key, 0, -1
+    raw.map { |mem| JSON.parse mem }
   end
 end

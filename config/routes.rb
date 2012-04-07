@@ -10,6 +10,8 @@ Documents::Application.routes.draw do
   get '/logout' => 'sessions#destroy', :as => :logout
 
   resources :users, :path => '' do
+    post '/clear_activity' => 'users#clear_activity', :as => :clear_activity
+
     resources :documents do
       resources :comments, :shallow => true, :only => [:create, :destroy]
     end

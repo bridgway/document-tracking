@@ -8,11 +8,13 @@
 
   <% if current_user.document_activity.size > 0 %>
     <section id='updates'>
-      <h2>Since you were last here...</h2>
+      <h2>Latest document actviity...</h2>
+
       <ul>
         <li><strong>Chris Weisel</strong> signed <strong class='document-name'>W9.pdf</strong></li>
       </ul>
 
+      <a href="<%= user_clear_activity_url current_user %>" id='clear'>Clear activity</a>
     </section>
   <% end %>
   <section id='signed'>

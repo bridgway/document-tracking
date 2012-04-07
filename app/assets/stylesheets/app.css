@@ -41,13 +41,23 @@ body {
   padding: 10px;
 }
 
-#updates .document-name {
+#updates h2 {
+  margin-bottom: 20px;
+}
 
+#updates .document-name {
   color: #555;
+}
+
+#updates a#clear {
+  color: #888;
+  padding: 10px;
 }
 
 #updates ul {
   padding-left: 25px;
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
 ul.bare {
