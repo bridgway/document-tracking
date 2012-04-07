@@ -66,4 +66,24 @@ class User < ActiveRecord::Base
       )
     end
   end
+
+  def document_activity_key
+    @document_activity_key ||= self.id.to_s + '.' + self.email
+  end
+
+  def add_document_activity(activity)
+    encoded = JSON.dump activity
+
+    $r.lpush self.document_activity_key, encoded
+  end
+
+  def document_activity
+    $r.multi do
+      # get the entire list
+      $r.lrange self.document_activity_key, 0, -1
+
+      # then clear it
+      $r.del self.document_activity_key
+    end.first.map { |mem| JSON.parse mem }
+  end
 end
