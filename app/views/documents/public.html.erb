@@ -1,3 +1,4 @@
+<% if !@document.file.source_processing %>
 <script type="text/javascript">
   $(document).ready(function () {
     Alice.load({
@@ -8,6 +9,8 @@
     })
   })
 </script>
+
+<% end %>
 
 <div id='document' class='public'>
   <header>
@@ -21,12 +24,16 @@
   </header>
 
   <section id='document-viewer'>
-    <div id='the-document'>
-      <!-- <embed src="/test.pdf" width="800" height="575"> -->
-    </div>
+    <% if !@document.file.source_processing %>
+      <div id='the-document'>
+        <!-- <embed src="/test.pdf" width="800" height="575"> -->
+      </div>
+    <% else %>
+      <strong><p>The document is still processing.  Try again in a few minutes.</p></strong>
+    <% end %>
   </section>
 
-  <% if @viewer != nil && @viewer.is_signee?(@document) %>
+  <% if @viewer != nil && @viewer.is_signee?(@document) && !@document.file.source_processing %>
     <section id='sign-it'>
 
       <%= form_for [@document.user, @document], :method => :put do |form| %>
