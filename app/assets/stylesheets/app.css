@@ -38,7 +38,16 @@ body {
 #updates {
   background-color: #EEE;
   margin-bottom: 40px;
-  color: #326ECF;
+  padding: 10px;
+}
+
+#updates .document-name {
+
+  color: #555;
+}
+
+#updates ul {
+  padding-left: 25px;
 }
 
 ul.bare {

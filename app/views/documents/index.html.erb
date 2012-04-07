@@ -6,11 +6,15 @@
     });
   </script>
 
-  <section id='updates'>
-    <h2>2 Documents were signed since you were last here.</h2>
-    <a href="#">details...</a>
-  </section>
+  <% if current_user.document_activity.size > 0 %>
+    <section id='updates'>
+      <h2>Since you were last here...</h2>
+      <ul>
+        <li><strong>Chris Weisel</strong> signed <strong class='document-name'>W9.pdf</strong></li>
+      </ul>
 
+    </section>
+  <% end %>
   <section id='signed'>
     <header>
       <h2>Signed Documents</h2>

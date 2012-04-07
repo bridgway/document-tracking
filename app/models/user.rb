@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   end
 
   def document_activity_key
-    @document_activity_key ||= self.id.to_s + '.' + self.email
+    @document_activity_key ||= [self.id.to_s, self.email, "activity"].join '.'
   end
 
   def add_document_activity(activity)
