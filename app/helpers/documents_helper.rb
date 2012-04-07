@@ -31,4 +31,13 @@ module DocumentsHelper
       "Status: #{status.capitalize}"
     end
   end
+
+  def page_url_template(document_file)
+    dir = document_file.source.file.basename
+    size = '<%= size %>'
+    basename = document_file.source.file.basename
+
+    page = basename + "_" + '<%= page %>' + '.png'
+    File.join("/uploads", dir, size, page)
+  end
 end

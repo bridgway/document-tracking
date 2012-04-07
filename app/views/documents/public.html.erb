@@ -1,3 +1,14 @@
+<script type="text/javascript">
+  $(document).ready(function () {
+    Alice.load({
+      pages: "<%=  raw(page_url_template(@document.file)) %>",
+      container: "#the-document",
+      title: "W9 Form",
+      numPages: 4
+    })
+  })
+</script>
+
 <div id='document' class='public'>
   <header>
     <h1><%= @document.filename %></h1>
@@ -9,9 +20,11 @@
 
   </header>
 
-  <div id='the-document'>
-    <embed src="/test.pdf" width="800" height="575">
-  </div>
+  <section id='document-viewer'>
+    <div id='the-document'>
+      <!-- <embed src="/test.pdf" width="800" height="575"> -->
+    </div>
+  </section>
 
   <% if @viewer != nil && @viewer.is_signee?(@document) %>
     <section id='sign-it'>

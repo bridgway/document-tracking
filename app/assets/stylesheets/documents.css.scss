@@ -1,3 +1,27 @@
 // Place all the styles related to the documents controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.alice {
+  background-color: #EEE;
+  height: 600px;
+  width: 700px;
+  margin-bottom: 20px;
+  overflow: scroll;
+  padding: 20px;
+  position: relative;
+  border: 5px solid #EEE;
+}
+
+.alice img.thumb {
+  margin-bottom: 40px;
+}
+
+.alice .thumb.current {
+  border: 2px solid yellow;
+}
+
+
+#document-viewer {
+  margin-bottom: 40px;
+}
