@@ -8,11 +8,6 @@
 
       <a href="<%= user_clear_activity_url current_user %>" id='clear'>Clear activity</a>
     </section>
-
-    <section id='actions'>
-      <button><span class='add'>+</span> Create Document</button>
-      <button><span class='add'>+</span> Add Person</button>
-    </section>
 <% end %>
 
   <script type="text/javascript">
@@ -56,4 +51,12 @@
         <p>No signed documents.</p>
       <% end %>
       </ul>
+    </section>
+
+    <section id='actions'>
+      <nav>
+        <%= link_to "New Document", new_user_document_path(current_user), class: "button" %>
+        <%= link_to "Add Person", "#", class: "button" %>
+
+      </nav>
     </section>

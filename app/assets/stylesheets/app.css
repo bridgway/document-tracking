@@ -140,28 +140,3 @@ ul.documents li span {
 #actions {
   margin-bottom: 30px;
 }
-
-#actions button {
-  border: none;
-  padding: 10px;
-  background-color: #FF9E59;
-  border-radius: 5px;
-  font-family: Helvetica;
-  font-weight: bold;
-  font-size: 14px;
-  width: 45%;
-  margin-right: 18px;
-  color: white;
-  text-transform: uppercase;
-}
-
-#actions button:active {
-  background-color: #FF5C21;
-}
-
-#actions button span.add {
-  display: none;
-  color: green;
-  font-size: 20px;      
-  margin-right: 5px;
-}

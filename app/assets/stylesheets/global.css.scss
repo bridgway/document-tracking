@@ -2,11 +2,37 @@ h1 {
   font-size: 25px;
 }
 
-
 #masthead a {
   color: black;
 }
 
 #masthead a:hover {
   color: #444;
+}
+
+button, .button {
+  border: none;
+  padding: 10px;
+  background-color: #FFF;
+  border-radius: 5px;
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: 14px;
+  width: 45%;
+  margin-right: 18px;
+  text-transform: uppercase;
+  border: 1px solid #CCC;
+  box-shadow: 0px 1px 1px #CCC;
+  color: black !important;
+}
+
+button:active, .button:active {
+  box-shadow: none;
+}
+
+button span.add {
+  display: none;
+  color: green;
+  font-size: 20px;
+  margin-right: 5px;
 }
