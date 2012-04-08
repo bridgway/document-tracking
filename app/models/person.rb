@@ -12,4 +12,8 @@ class Person < ActiveRecord::Base
   def is_signee?(document)
     document.signee_id == self.id
   end
+
+  def gravatar
+    gravatar_url self.email
+  end
 end

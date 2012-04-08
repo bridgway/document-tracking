@@ -9,4 +9,8 @@ class Comment < ActiveRecord::Base
 
   validates :source_id, :presence => true
   validates :body, :presence => true
+
+  def gravatar
+    gravatar_url self.source.email
+  end
 end

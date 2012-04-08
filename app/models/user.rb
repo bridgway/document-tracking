@@ -88,4 +88,8 @@ class User < ActiveRecord::Base
     raw = $r.lrange self.document_activity_key, 0, -1
     raw.map { |mem| JSON.parse mem }
   end
+
+  def gravatar
+    gravatar_url self.email
+  end
 end
