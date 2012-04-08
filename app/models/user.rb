@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
     raw.map { |mem| JSON.parse mem }
   end
 
-  def gravatar
-    gravatar_url self.email
+  def gravatar(size = nil)
+    gravatar_url self.email, size
   end
 end

@@ -1,6 +1,6 @@
 $width: 350px;
 
-input[type=text] {
+input[type=text], input[type=password] {
   width: $width;
   height: 30px;
   margin-bottom: 10px;

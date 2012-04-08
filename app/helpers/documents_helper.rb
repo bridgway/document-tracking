@@ -1,5 +1,8 @@
 module DocumentsHelper
-  def document_people_avatars
+  def document_people_avatars(people)
+    people.reduce "" do |html, person|
+      html << image_tag(person.gravatar('25'))
+    end.html_safe
   end
 
   def document_people_list(people)

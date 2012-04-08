@@ -13,7 +13,7 @@ class Person < ActiveRecord::Base
     document.signee_id == self.id
   end
 
-  def gravatar
-    gravatar_url self.email
+  def gravatar(size = nil)
+    gravatar_url self.email, size
   end
 end
