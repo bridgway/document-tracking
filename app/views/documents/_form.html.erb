@@ -1,0 +1,45 @@
+ <section id='new-document'>
+    <header>
+      <h2>Upload A New Document</h2>
+    </header>
+
+    <%= form_for [@current_user, Document.new], :method => "post", :html => { :multipart => true, :id => 'upload-form' } do %>
+
+      <section id='upload'>
+        <div>
+          <div class='inner'>
+            <h2>Upload a PDF</h2>
+            <input type='file'  class='required file' name='file'>
+          </div>
+        </div>
+
+        <ul id='document-thumbnails'>
+
+        </ul>
+      </section>
+
+      <section id='fields'>
+          <div class='block'>
+            <label>To:</label>
+            <input type='text' data-people='<%= @user.people_json %>' id='name-field' spellcheck='false' autocomplete='off' name='to' class='required to'/>
+          </div>
+
+         <div class='block' id='cc-block'>
+            <label>CC:</label>
+            <input type='text' data-people='<%= @user.people_json %>' id='cc-field' spellcheck='false' autocomplete='off' name='cc'/>
+          </div>
+
+          <div id='add-cc'>
+            <a href="#" class='action'>+ Add CC</a>
+          </div>
+
+
+          <div class='block'>
+            <label>Message:</label>
+            <textarea id='message' name='message' class='required message'></textarea>
+
+            <button>Send It</button>
+          </div>
+      </section>
+    <% end %>
+  </section>

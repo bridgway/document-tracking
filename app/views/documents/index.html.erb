@@ -1,13 +1,5 @@
-<section id='document-index'>
-
-  <script type="text/javascript">
-    $(document).ready(function () {
-      currentDocument.set('user_id', <%= current_user.id %>)
-    });
-  </script>
-
-  <% if current_user.document_activity.size > 0 %>
-    <section id='updates'>
+<% content_for :side do %>
+    <section id='activity'>
       <h2>Latest document actviity...</h2>
 
       <ul>
@@ -16,15 +8,28 @@
 
       <a href="<%= user_clear_activity_url current_user %>" id='clear'>Clear activity</a>
     </section>
-  <% end %>
-  <section id='signed'>
-    <header>
-      <h2>Signed Documents</h2>
-      <p>Process them and move forward.</p>
-    </header>
 
-    <ul class='document-list bare'>
-      <% if @signed.any? %>
+    <section id='actions'>
+      <button><span class='add'>+</span> Create Document</button>
+      <button><span class='add'>+</span> Add Person</button>
+    </section>
+<% end %>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      currentDocument.set('user_id', <%= current_user.id %>)
+    });
+  </script>
+
+
+    <section id='signed'>
+      <header>
+        <h2>Signed Documents</h2>
+        <p class='sub'>The ball is in your court.</p>
+      </header>
+
+      <ul class='documents'>
+         <% if @signed.any? %>
         <% @signed.each do |doc| %>
         <li><h3><%= link_to doc.filename, [current_user, doc] %>
           <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
@@ -32,72 +37,23 @@
       <% else %>
         <p>No signed documents.</p>
       <% end %>
-    </ul>
+      </ul>
+    </section>
 
-  </section>
+    <section id='unsigned'>
+      <header>
+        <h2>Unsigned Documents</h2>
+        <p class='sub'>The ball is in your court.</p>
+      </header>
 
-  <section id='outstanding-documents'>
-    <header>
-      <h2>Outstanding Documents</h2>
-      <p style='font-size: 16px;'>These documents have not been signed yet, not much to do but wait.</p>
-    </header>
-
-
-    <ul class='document-list bare'>
-      <% @unsigned.each do |doc| %>
+      <ul class='documents'>
+         <% if @signed.any? %>
+        <% @signed.each do |doc| %>
         <li><h3><%= link_to doc.filename, [current_user, doc] %>
           <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
+        <% end %>
+      <% else %>
+        <p>No signed documents.</p>
       <% end %>
-    </ul>
-  </section>
-
-
-  <section id='new-document'>
-    <header>
-      <h2>Upload A New Document</h2>
-    </header>
-
-    <%= form_for [@current_user, Document.new], :method => "post", :html => { :multipart => true, :id => 'upload-form' } do %>
-
-      <section id='upload'>
-        <div>
-          <div class='inner'>
-            <h2>Upload a PDF</h2>
-            <input type='file'  class='required file' name='file'>
-          </div>
-        </div>
-
-        <ul id='document-thumbnails'>
-
-        </ul>
-      </section>
-
-      <section id='fields'>
-          <div class='block'>
-            <label>To:</label>
-            <input type='text' data-people='<%= @user.people_json %>' id='name-field' spellcheck='false' autocomplete='off' name='to' class='required to'/>
-          </div>
-
-         <div class='block' id='cc-block'>
-            <label>CC:</label>
-            <input type='text' data-people='<%= @user.people_json %>' id='cc-field' spellcheck='false' autocomplete='off' name='cc'/>
-          </div>
-
-          <div id='add-cc'>
-            <a href="#" class='action'>+ Add CC</a>
-          </div>
-
-
-          <div class='block'>
-            <label>Message:</label>
-            <textarea id='message' name='message' class='required message'></textarea>
-
-            <button>Send It</button>
-          </div>
-      </section>
-    <% end %>
-  </section>
-</section>
-
-<div class='clear'></div>
-
+      </ul>
+    </section>

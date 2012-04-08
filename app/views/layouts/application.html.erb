@@ -20,17 +20,42 @@
 
 </head>
 <body>
+  <header id='bar'></header>
 
-  <section id='container'>
+  <section id='app'>
     <header id='main-header'>
-      <h1><a href='/'>Finite Loop Consulting</a></h1>
-    </header>
-    <div id='container-inner'>
-      <div id='body'>
-        <%= yield %>
-      </div>
-    </div>
-  </section>
+      <h1>Briefcase</h1>
 
+      <nav>
+        <a href="#">Activity</a>
+        <a href="#">People</a>
+        <a href="#">Your Account</a>
+      </nav>
+
+      <div class='clear'></div>
+    </header>
+
+    <section id='body'>
+
+      <section id='main'>
+
+        <%= yield %>
+
+      </section>
+
+      <section id='side'>
+        <% if content_for? :side %>
+          <%= yield :side %>
+        <% end %>
+    
+      </section>
+
+      <div class='clear'></div>
+
+      <footer>
+        <p>Finite Loop Software 2012</p>
+      </footer>
+    </section>
+  </section>    
 </body>
 </html>
