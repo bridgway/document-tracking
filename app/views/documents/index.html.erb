@@ -42,9 +42,10 @@
       </header>
 
       <ul class='documents'>
-         <% if @signed.any? %>
-        <% @signed.each do |doc| %>
-        <li><h3><%= link_to doc.filename, [current_user, doc] %>
+         <% if @unsigned.any? %>
+        <% @unsigned.each do |doc| %>
+        <li class='document-list-item'><h3><%= link_to doc.filename, [current_user, doc] %>
+          <span>Last viewed <%= time_ago_in_words doc.created_at %> ago</span>
           <span>(<%= document_people_list doc.recipients %>)</span></h3></li>
         <% end %>
       <% else %>

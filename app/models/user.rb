@@ -1,6 +1,9 @@
 require 'peoplekit/peoplekit'
+require 'gravatar'
 
 class User < ActiveRecord::Base
+  include Gravatar
+
   has_secure_password
 
   validates :email, :presence => true

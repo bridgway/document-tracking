@@ -1,4 +1,8 @@
+require 'gravatar'
+
 class Person < ActiveRecord::Base
+  include Gravatar
+
   belongs_to :user
 
   has_many :documents, :through => :document_transfers

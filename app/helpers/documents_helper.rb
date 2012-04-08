@@ -1,4 +1,7 @@
 module DocumentsHelper
+  def document_people_avatars
+  end
+
   def document_people_list(people)
     html = ""
     people.each_with_index do |person, i|
