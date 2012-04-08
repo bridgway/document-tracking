@@ -1,9 +1,9 @@
  <section id='new-document'>
     <header>
-      <h2>Upload A New Document</h2>
-    </header>
+      <h1>Upload a new document</h1>
+    </header> 
 
-    <%= form_for [@current_user, Document.new], :method => "post", :html => { :multipart => true, :id => 'upload-form' } do %>
+    <%= form_for [current_user, Document.new], :method => "post", :html => { :multipart => true, :id => 'upload-form' } do %>
 
       <section id='upload'>
         <div>
@@ -21,12 +21,12 @@
       <section id='fields'>
           <div class='block'>
             <label>To:</label>
-            <input type='text' data-people='<%= @user.people_json %>' id='name-field' spellcheck='false' autocomplete='off' name='to' class='required to'/>
+            <input type='text' data-people='<%= user.people_json %>' id='name-field' spellcheck='false' autocomplete='off' name='to' class='required to'/>
           </div>
 
          <div class='block' id='cc-block'>
             <label>CC:</label>
-            <input type='text' data-people='<%= @user.people_json %>' id='cc-field' spellcheck='false' autocomplete='off' name='cc'/>
+            <input type='text' data-people='<%= user.people_json %>' id='cc-field' spellcheck='false' autocomplete='off' name='cc'/>
           </div>
 
           <div id='add-cc'>

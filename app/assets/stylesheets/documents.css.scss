@@ -21,7 +21,36 @@ div.alice {
   border: 2px solid yellow;
 }
 
-
 #document-viewer {
   margin-bottom: 40px;
+}
+
+#upload {
+  float: left;
+  display: inline-block;
+}
+
+#new-document {
+  width: 1000px;
+}
+
+#new-document input[type=text], #new-document textarea {
+  width: 500px;
+}
+
+#new-document #fields {
+  float: left;
+  width: 500px;
+}
+
+#new-document header {  
+  height: 50px;
+}
+
+#add-cc {
+  margin-bottom: 20px;
+}
+
+#cc-block {
+  display: none;
 }

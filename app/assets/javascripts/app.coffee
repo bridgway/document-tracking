@@ -1,5 +1,5 @@
 $ ->
-  if $('#document-index').length > 0
+  if true
     class window.Document extends Backbone.Model
       defaults:
         files: []

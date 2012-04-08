@@ -1,6 +1,10 @@
 class DocumentsController < ApplicationController
   before_filter :authenticate!, :only => [:index, :create]
 
+  def new
+    @document = Document.new
+  end
+
   def index
     @user = current_user
     @unsigned = @user.unsigned_documents
