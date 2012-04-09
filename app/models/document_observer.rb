@@ -1,7 +1,7 @@
 class DocumentObserver < ActiveRecord::Observer
   def after_save(document)
     if document.status_changed?
-      if document.status = :signed
+      if document.status == :signed
         activity = {
           created_at: DateTime.now,
           document_id: document.id,
