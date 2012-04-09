@@ -5,7 +5,7 @@
       pages: "<%=  raw(page_url_template(@document.file)) %>",
       container: "#the-document",
       title: "W9 Form",
-      numPages: 4
+      numPages: <%= @document.file.source.thumbs['1000x'].size %>
     })
   })
 </script>

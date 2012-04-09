@@ -1,5 +1,5 @@
 $ ->
-  if true
+  if $('#show-document').length > 0 or $('#signed').length > 0
     class window.Document extends Backbone.Model
       defaults:
         files: []
