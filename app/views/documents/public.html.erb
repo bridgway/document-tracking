@@ -12,6 +12,10 @@
 
 <% end %>
 
+<header id='account-header'>
+  <h1>Finite Loop Consulting</h1>
+</header>
+
 <div id='document' class='public'>
   <header>
     <h1><%= @document.filename %></h1>
@@ -59,7 +63,8 @@
   <ul id='comments'>
     <%= form_for [@document.user, @document, Comment.new], :id => 'add-comment',
                                                          :remote => false  do |f| %>
-      <p><strong>Add A Comment</strong></p>
+
+     <label for="body">Add A Comment</label>                                                        
 
       <%= f.text_area :body %>
 
@@ -95,6 +100,9 @@
     <% end %>
   </ul>
 
-
 </section>
 </div>
+
+<footer>
+  <p>Finite Loop Software 2012</p>
+</footer>

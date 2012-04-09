@@ -32,7 +32,7 @@ class DocumentsController < ApplicationController
         return
       end
 
-      render :public
+      render :public, layout: "document_public"
     # The Admin Page
     else
       @document = current_user.documents.find params[:id]
