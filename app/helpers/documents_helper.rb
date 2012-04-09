@@ -28,9 +28,9 @@ module DocumentsHelper
 
   def document_status_header(document_status)
     if document_status == :signed
-      status = "Signed"
+      status = "uigned"
     else
-      status = "Unsigned"
+      status = "unsigned"
     end
 
     content_tag :h3, :class => status do

@@ -1,7 +1,29 @@
+<%= content_for :side do %>
+  <div id='document-capsule'>
+    <div id='inner'>
+      <div id='side-inner'>
+        <img id='thumbnail' src="<%= @document.file.source.thumb.url %>">
+
+        <ul class='bare' id='tools'>
+          <li><%= link_to "View the discussion page", user_public_document_page_path(current_user, @document) %></li>
+          <li><a href="<%= @document.file.source.url %>">Download the file</a></li>
+          <li><a href="#">Delete</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+
+
 <section id='show-document'>
 
-  <header>
+  <header id='document-header'>
     <h1><%= @document.filename %></h1>
+
+    <div class='clear'></div>
+    
+    <%= document_status_header(@document.status)%>
 
     <% if @document.file.source_processing %>
 
@@ -33,66 +55,12 @@
           <% end %>
         <% end %>
       </ul>
-
     </section>
 
+
   </div>
 
-
-  <div id='side'>
-    <header>
-      <div id='header-inner'>
-      <%= document_status_header(@document.status)%>
-      </div>
-    </header>
-    <div id='side-inner'>
-      <img id='thumbnail' src="<%= @document.file.source.thumb.url %>">
-
-      <ul class='bare' id='tools'>
-        <li><%= link_to "View the discussion page", user_public_document_page_path(current_user, @document) %></li>
-        <li><a href="<%= @document.file.source.url %>">Download the file</a></li>
-        <li><a href="#">Delete</a></li>
-      </ul>
-    </div>
-  </div>
 </div>
 
-<section id='comments-section'>
-  <h2>Comments:</h2>
-  <ul id='comments'>
-    <% if @document.comments.any? %>
-      <% @document.comments.each do |comment| %>
-        <li>
-          <div class='avatar'>
-            <img src="<%= comment.gravatar %>">
-          </div>
-
-          <div class='content'>
-            <header style='border: none; margin-bottom: 10px;'>
-              <strong><%= comment.source.name %></strong>
-            </header>
-
-            <%= comment.body %>
-          </div>
-
-        <div class='clear'></div>
-        </li>
-      <% end %>
-    <% else %>
-
-    <p class='empty'>No comments yet.</p>
-
-    <% end %>
-  </ul>
-  <%= form_for [current_user, @document, Comment.new], :id => 'add-comment',
-                                                       :remote => false do |f| %>
-    <p><strong>Add A Comment</strong></p>
-
-    <%= f.text_area :body %>
-
-    <button>Add Comment</button>
-  <% end %>
-
-</section>
 
 </section>

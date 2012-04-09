@@ -35,3 +35,18 @@ button span.add {
   font-size: 20px;
   margin-right: 5px;
 }
+
+#container:before,
+#container:after {
+    content:"";
+    display:table;
+}
+
+#container:after {
+    clear:both;
+}
+
+/* For IE 6/7 (trigger hasLayout) */
+#container {
+    zoom:1;
+}
