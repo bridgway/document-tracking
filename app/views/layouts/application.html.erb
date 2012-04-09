@@ -27,11 +27,7 @@
 
       <h1 id='masthead'><%= link_to "Briefcase", root_url %></h1>
 
-      <nav>
-        <a href="#">Activity</a>
-        <a href="#">People</a>
-        <a href="#">Your Account</a>
-      </nav>
+      <%= render :partial => "shared/navigation" %>
 
       <div class='clear'></div>
     </header>
