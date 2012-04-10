@@ -20,22 +20,6 @@ class User < ActiveRecord::Base
 
   has_many :document_transfers, :through => :documents
 
-  after_create do
-    f = self.freshbooks_client
-
-    f.clients.each do |client|
-      self.people << Person.create(:email => client[:email], :name => client[:name])
-    end
-
-    self.save
-  end
-
-  def freshbooks_client
-    config = { :url => self.freshbooks_url, :token => self.freshbooks_token }
-
-    @freshbooks_client ||= PeopleKit.connect :freshbooks, config
-  end
-
   def people_json
     self.people.map { |person| { id: person.id, email: person.email, name: person.name } }.to_json
   end
@@ -91,5 +75,31 @@ class User < ActiveRecord::Base
 
   def gravatar(size = nil)
     gravatar_url self.email, size
+  end
+
+  #
+  #  
+  #  Importing
+  #
+  #
+
+  def import(opts = {})
+    return false if !opts[:from]
+    case opts[:from]
+    when :freshbooks
+      freshbooks = self.freshbooks_client opts[:url], opts[:token]
+
+      freshbooks.clients.each do |client|
+        self.people << Person.create(:email => client[:email], :name => client[:name])
+      end
+
+      self.save
+    end
+  end
+
+  def freshbooks_client(url, token)
+    config = { :url => url, :token => token }
+
+    @freshbooks_client ||= PeopleKit.connect :freshbooks, config
   end
 end
