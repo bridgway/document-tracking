@@ -1,0 +1,15 @@
+<%= title "Import > Freshbooks" %>
+
+<header>  
+  <h1>Import Your Freshbooks Contacts</h1>
+</header>
+
+<%= form_tag do %>
+  <%= label_tag "Freshbooks Account URL" %>
+  <%= text_field_tag :name %>
+
+  <%= label_tag "Freshbooks Password" %>
+  <%= password_field_tag :name %>
+
+  <%= button_tag "Import" %>
+<% end %>

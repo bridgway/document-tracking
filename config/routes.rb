@@ -20,6 +20,9 @@ Documents::Application.routes.draw do
     get '/:id/view' => 'documents#show', :as => :public_document_page
 
     resources :people
+
+    # Importing
+    match '/import/freshbooks' => 'import#freshbooks', :as => :freshbooks_import
   end
 
   resources :users
