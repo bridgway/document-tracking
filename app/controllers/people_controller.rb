@@ -3,7 +3,7 @@ class PeopleController < ApplicationController
   respond_to :html, :json
 
   def index
-    @people = current_user.people
+    @people = current_user.people.page(params[:page]).per_page(10)
   end
 
   def new

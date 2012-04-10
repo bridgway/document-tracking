@@ -22,6 +22,7 @@ gem 'resque'
 gem 'mini_magick'
 gem 'rest-client'
 gem 'capistrano'
+gem 'will_paginate', '~> 3.0'
 
 group :development do
   gem 'shotgun'

@@ -171,6 +171,7 @@ GEM
       raindrops (~> 0.7)
     vegas (0.1.11)
       rack (>= 1.0.0)
+    will_paginate (3.0.3)
 
 PLATFORMS
   ruby
@@ -197,3 +198,4 @@ DEPENDENCIES
   shotgun
   uglifier (>= 1.0.3)
   unicorn
+  will_paginate (~> 3.0)

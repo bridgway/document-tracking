@@ -9,7 +9,7 @@
 
   <table>
     <tbody>
-      <% current_user.people.each do |person| %>
+      <% @people.each do |person| %>
         <tr>
           <td class='avatar'><%= image_tag person.gravatar('50') %></td>
           <td><%= person.name %></td>
@@ -17,7 +17,10 @@
         </tr>
       <% end %>
     </tbody>
+
   </table>
+
+  <%= will_paginate @people %>
 
 </section>
 
