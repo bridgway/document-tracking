@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 22) do
+ActiveRecord::Schema.define(:version => 23) do
 
   create_table "comments", :force => true do |t|
     t.integer  "source_id"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 22) do
     t.string   "last_name"
     t.string   "password_digest"
     t.string   "view_token"
+    t.string   "company"
   end
 
 end
