@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
 
   # TODO: Should validate if the credentials are good before the user signs up.
   # Signing up with a non-valid url here explodes the app
-  validates :freshbooks_token, :presence => true
-  validates :freshbooks_url, :presence => true
+  # validates :freshbooks_token, :presence => true
+  # validates :freshbooks_url, :presence => true
 
   has_many :documents
   has_many :files, :class_name => DocumentFile

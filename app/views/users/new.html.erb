@@ -1,0 +1,32 @@
+<header>
+  <h1>Sign Up</h1>
+</header>
+
+<% if @user && @user.errors.any? %>
+  <ul class='errors'>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for User.new do |f| %>
+
+  <div class='block'>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class='block'>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class='block'>
+    <%= f.label :password%>
+    <%= f.password_field :password %>
+  </div>
+
+
+  <button>Sign Up</button>
+<% end %>
