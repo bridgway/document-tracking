@@ -9,7 +9,7 @@ Documents::Application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy', :as => :logout
 
-  resources :users, :path => '' do
+  resources :users, :only => [:show], :path => ''  do
     post '/clear_activity' => 'users#clear_activity', :as => :clear_activity
 
     resources :documents do
@@ -21,4 +21,6 @@ Documents::Application.routes.draw do
 
     resources :people
   end
+
+  resources :users
 end
