@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to '/', :notice => "You're signed in."
     else
-      flash.now[:notice] = "Failed"
+      flash.now[:notice] = "Invalid email or password"
       render :new
     end
   end

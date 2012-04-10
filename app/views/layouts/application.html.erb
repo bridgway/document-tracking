@@ -32,8 +32,9 @@
       <div class='clear'></div>
     </header>
 
-    <section id='body'>
+    <%= render :partial => "shared/flash", locals: { flash: flash } %>
 
+    <section id='body'>
       <section id='main'>
 
         <%= yield %>

@@ -1,6 +1,10 @@
 <nav>
-  <%= link_to "Activity", user_documents_path(current_user) %>
-  <a href="#">People</a>
-  <%= link_to "Your Account", user_path(current_user) %>
-  <%= link_to "Log Out", logout_url %>
+  <% if current_user %>
+    <%= link_to "Activity", user_documents_path(current_user) %>
+    <%= link_to "People", user_people_path(current_user) %>
+    <%= link_to "Your Account", user_path(current_user) %>
+    <%= link_to "Log Out", logout_url %>
+  <% else %>
+    <%= link_to "Log In", login_url %>
+  <% end %>
 </nav>
