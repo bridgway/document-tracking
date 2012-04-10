@@ -46,7 +46,10 @@ button span.add {
     clear:both;
 }
 
-/* For IE 6/7 (trigger hasLayout) */
 #container {
     zoom:1;
+}
+
+p {
+  margin-bottom: 40px;
 }

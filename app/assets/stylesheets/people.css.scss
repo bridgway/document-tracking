@@ -1,3 +1,24 @@
-// Place all the styles related to the people controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// The Index Page
+
+#people {
+  header p {
+    margin-top: 10px;    
+  }  
+
+  h1 {
+    font-size: 30px;
+  }
+
+  header input[type=text] {
+    width: 400px;
+  }
+
+  td {
+    padding-right: 40px;
+    padding-bottom: 10px;
+  }
+}
+
+#people-side label {
+  color: #444;
+}

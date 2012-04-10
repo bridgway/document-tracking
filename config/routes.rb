@@ -17,7 +17,8 @@ Documents::Application.routes.draw do
     end
 
     resources :document_transfers
-
     get '/:id/view' => 'documents#show', :as => :public_document_page
+
+    resources :people
   end
 end
