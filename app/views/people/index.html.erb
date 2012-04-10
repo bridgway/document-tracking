@@ -24,22 +24,6 @@
 
 <% content_for :side do %>
   <div id='people-side'>
-    <header>
-      <h1>Add A New Person</h1>
-    </header>
-
-    <form action="/">      
-      <div class='block'>
-        <label for="name">Name</label>
-        <input type="text" />
-      </div>
-
-      <div class='block'>
-        <label for="name">Email</label>
-        <input type="text" />
-      </div>
-
-      <button>Add Person</button>
-    </form>
+    <%= render partial: "form" %>
   </div>
 <% end %>

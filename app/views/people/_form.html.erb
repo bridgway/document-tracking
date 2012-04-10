@@ -1,0 +1,18 @@
+<header>
+  <h1>Add A New Person</h1>
+</header>
+
+<%= form_for [current_user, Person.new] do |f| %>
+  <div class='block'>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class='block'>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <button>Add Person</button>
+
+<% end %>

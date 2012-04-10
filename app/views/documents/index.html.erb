@@ -58,7 +58,6 @@
     <section id='actions'>
       <nav>
         <%= link_to "New Document", new_user_document_path(current_user), class: "button" %>
-        <%= link_to "Add Person", "#", class: "button" %>
-
+        <%= link_to "Add Person", new_user_person_path(current_user), class: "button" %>
       </nav>
     </section>
